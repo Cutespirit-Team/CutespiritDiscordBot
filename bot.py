@@ -11,7 +11,7 @@ import time	#可以處理時間
 
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
-TOKEN = 'ODY2MzUyNTg1OTU4NDkwMTUy.YPRTuA.KoxqZaLhWpU1M_J8BdHsXsch-dU'
+TOKEN = 'Your Token Here'
 
     #參數設定
 capCountDown111text = "2022/06/04 08:30 AM" #111會考日期文字
@@ -23,8 +23,8 @@ tcteCountDown111 = datetime(2022,5,7,10,15) #111統測日期
 ceecCountDown111text = "2022/05/15 09:20 AM" #111學測日期文字
 ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
 
-TershiBirthday18text = "2022/05/26" #夏特稀111生日文字
-TershiBirthday18 = datetime(2022,5,26,0,0) #夏特稀111生日
+TershiBirthday18text = "2022/05/00" #夏特稀111生日文字
+TershiBirthday18 = datetime(2022,5,00,0,0) #夏特稀111生日
 
 
 YahooStoptext = "2021/05/04" #Yahoo停止日文字
