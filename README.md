@@ -1,23 +1,18 @@
-# TershiBot - Telegram
-A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器人
-這是一款使用Python寫的Telegram Bot，這是利用Telepot做成的，目前也正在維護中，也有在定時更新。<br>
+# CutespiritDiscordBot - Discord
+A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
+這是一款使用Python寫的Discord Bot，這是利用discord.py做成的，目前也正在維護中，也有在定時更新。<br>
 目前功能:<br>
 
 | 用法： /指令 | [選項...] [參數...] |
 |-----|-----|
 | /help | 顯示幫助 |
-| /showmeme | 顯示迷因梗圖 |
-| /member | 顯示群組人數 |
-| /admim | 顯示管理員 |
-| /callme | 呼叫夏特稀 |
-| /sayhello | 說哈摟 |
+| /lang | 更改語言(還沒完成) |
 | /showweb | 顯示官網 |
 | /count | 倒數計時 |
 | /wearechina | 我們是中國 |
 | /sendmsg | 次數 訊息 [選項] 傳送訊息 --help可以查看幫助 |
 | /calc | 數字x 數字y [選項] 計算機 --help可以查看幫助 |
 | /time | 時間 |
-| /ytdl | YouTube影片下載器 |
 | /pacman | Arch-Pacman工具 |
 | /pkg | Arch套件查詢資訊工具  |
 | /cmd | Arch指令尋找所屬套件  |
@@ -35,7 +30,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 
 ### **Arch-Linux**<br>
 **Step 1.** ``sudo pacman -Syy python3 python3-pip httpd`` <br>
-**Step 2.**``pip3 install telepot``<br>
+**Step 2.**``pip3 install discord.py``<br>
 **Step 3.**``sudo systemctl start httpd``<br>
 **Step 4.**``mkdir /srv/http/yt``<br>
 **Step 5.**``sudo chown USER:USER /srv/http/yt``<br>
@@ -43,7 +38,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 ### **Debian/Ubuntu**<br>
 **Step 1.**``sudo apt update&&sudo apt upgrade -y``<br>
 **Step 2.**``sudo apt install httpd python3 python3-pip``<br>
-**Step 3.**``pip3 install telepot``<br>
+**Step 3.**``pip3 install discord.py``<br>
 **Step 4.**``sudo mkdir /var/www/html/yt``<br>
 **Step 5.**``sudo chown USER:USER /var/www/html/yt``<br>
 **Step 6.**``sudo service httpd start``<br>
@@ -51,15 +46,15 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 ### **Termux(For Android)**<br>
 **Step 1.**``pkg update&&pkg upgrade``<br>
 **Step 2.**``pkg install httpd python3 python3-pip``<br>
-**Step 3.**``pip3 install telepot``<br>
+**Step 3.**``pip3 install discord.py``<br>
 **Step 4.**``mkdir /var/www/html/yt``<br>
 **Step 5.**``apachectl``<br>
 
 ### Run 運行
-**Step 1.**``git clone https://github.com/mmm25002500/TershiBot-Telegram``<br>
-**Step 2.**``mkdir TershiBot-Telegram/yt``<br>
-**Step 3.**``vim TershiBot-Telegram/bot.py``<br>
-**Step 4.**``python3 TershiBot-Telegram/bot.py``<br>
+**Step 1.**``git clone https://github.com/Cutespirit-Team/CutespiritDiscordBot``<br>
+**Step 2.**``mkdir CutespiritDiscordBot/yt``<br>
+**Step 3.**``vim CutespiritDiscordBot/bot.py``<br>
+**Step 4.**``python3 CutespiritDiscordBot/bot.py``<br>
 
 ## 心得與建構思路:
 這是我在課餘的時候，寫出來的Telegram機器人，這個機器人是我慢慢翻Telepot Document寫出來的，以後也會有更多功能。
@@ -76,4 +71,4 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 [Tershi Gitbook](https://gitbook.tershi.ml) <br>
 [Tershi Telegram](https://t.me/TershiXia) <br>
 以上關於因為域名為免費域 因此隨時會網域更換！ <br>
-Licence:© Tershi 2021 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
+Licence:© Cutespirit 2021 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
