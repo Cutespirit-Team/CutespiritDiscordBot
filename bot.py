@@ -330,7 +330,7 @@ class MyClient(discord.Client):
 		if message.content == '/更新內容' or message.content == '/updateinfo' or '/updateinfo' in message.content:
 			await message.channel.send('''
 更新日期   - 版本 - 更新內容
-2021/0/19 - v0.1 - 初始版本(由TershiCloud Telegram Bot修改)
+2021/7/19 - v0.1 - 初始版本(由TershiCloud Telegram Bot修改)
 			''')
 		
 		if message.content == '/更新內容' or message.content == '/version' or '/version' in message.content:
