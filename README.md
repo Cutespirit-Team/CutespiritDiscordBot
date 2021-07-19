@@ -6,7 +6,6 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 | 用法： /指令 | [選項...] [參數...] |
 |-----|-----|
 | /help | 顯示幫助 |
-| /lang | 更改語言(還沒完成) |
 | /showweb | 顯示官網 |
 | /count | 倒數計時 |
 | /wearechina | 我們是中國 |
@@ -16,6 +15,7 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 | /pacman | Arch-Pacman工具 |
 | /pkg | Arch套件查詢資訊工具  |
 | /cmd | Arch指令尋找所屬套件  |
+| /status | 更改Discord 機器人狀態 |
 | /updateInfo | 查看更新內容 |
 | /version | 顯示版本|
 
