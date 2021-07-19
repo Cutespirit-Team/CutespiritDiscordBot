@@ -11,8 +11,7 @@ import time	#可以處理時間
 
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
-TOKEN = 'Your Token Here'
-
+TOKEN = 'Your Token Here'idDebug = False
     #參數設定
 capCountDown111text = "2022/06/04 08:30 AM" #111會考日期文字
 capCountDown111 = datetime(2022,6,4,8,30)#111會考日期
@@ -23,12 +22,13 @@ tcteCountDown111 = datetime(2022,5,7,10,15) #111統測日期
 ceecCountDown111text = "2022/05/15 09:20 AM" #111學測日期文字
 ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
 
-TershiBirthday18text = "2022/05/00" #夏特稀111生日文字
-TershiBirthday18 = datetime(2022,5,00,0,0) #夏特稀111生日
+TershiBirthday18text = "2022/05/26" #夏特稀111生日文字
+TershiBirthday18 = datetime(2022,5,26,0,0) #夏特稀111生日
 
 
 YahooStoptext = "2021/05/04" #Yahoo停止日文字
 YahooStop = datetime(2021,5,4) #Yahoo停止日
+
 def getCount(deadline): #把deadline(過期 就是到期) 放進來
 	#today = date.today() #現在日期
 	#CurrentToday = today.strftime("%Y") + "," + today.strftime("%m") + "," + today.strftime("%d") #現在日期格式
@@ -70,16 +70,16 @@ class MyClient(discord.Client):
 				text = '''
 		用法： /指令 [選項...] [參數...]
 		/help 顯示幫助
-		/lang 更改語言 (尚未完成)
 		/showweb 顯示官網
 		/count 倒數計時
-		/wearechina 我們是中國
+		/weareroc 我們是中國(中華民國)
 		/sendmsg 次數 訊息 [選項] 傳送訊息 --help可以查看幫助
 		/calc 數字x 數字y [選項] 計算機 --help可以查看幫助
 		/time 時間
 		/pacman Arch-pacman工具
 		/pkg Arch套件查詢資訊工具
 		/cmd Arch指令尋找所屬套件
+		/status 更改Discord 機器人狀態
 		/updateinfo 查看更新內容
 		/version 顯示版本
 				'''
@@ -103,7 +103,7 @@ class MyClient(discord.Client):
 			await message.channel.send(text)
 		if message.content == '/倒數' or message.content == '/count' or '/count' in message.content:
 			await message.channel.send(getExamCountText())
-		if message.content == '/我們是中國' or message.content == '/wearechina' or '/wearechina' in message.content:
+		if message.content == '/我們是中國' or message.content == '/weareroc' or '/weareroc' in message.content:
 			await message.channel.send('''中華民國萬歲，三民主義統一中國，我們是自由民主中國。''')
 
 		if message.content == '/傳送' or message.content == '/sendmsg' or '/sendmsg' in message.content:
@@ -330,7 +330,8 @@ class MyClient(discord.Client):
 		if message.content == '/更新內容' or message.content == '/updateinfo' or '/updateinfo' in message.content:
 			await message.channel.send('''
 更新日期   - 版本 - 更新內容
-2021/7/19 - v0.1 - 初始版本(由TershiCloud Telegram Bot修改)
+2021/07/19 - v0.1 - 初始版本(由TershiCloud Telegram Bot修改)
+2021/07/19 - v0.2 - 增加/status指令，可以隨時更改Discord狀態，刪除lang語言功能。
 			''')
 		
 		if message.content == '/更新內容' or message.content == '/version' or '/version' in message.content:
@@ -411,11 +412,17 @@ class MyClient(discord.Client):
 					finaltxt = finaltxt + str(txt[i]) + '\n'
 				await message.channel.send(finaltxt)
 
-		if  message.content == '/lang' or '/lang' in  message.content:
-			await message.channel.send('目前功能還沒開放，敬請期待！')
-
 		if  message.content == '/debug' or '/debug' in  message.content:
-			await message.channel.send('目前功能還沒開放，敬請期待！')
+			await message.channel.send('功能尚未開啟。')
+
+		if message.content.startswith('/status'):
+			tmp = message.content.split(' ')
+			text = ''
+			for i in range(1,len(tmp)):
+				text = text + str(tmp[i])
+			game = discord.Game(text)
+			await client.change_presence(status=discord.Status.idle, activity=game)
+        #discord.Status.<狀態>，可以是online,offline,idle,dnd,invisible
 intents = discord.Intents.default()
 intents.members = True
 client = MyClient()
