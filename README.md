@@ -15,6 +15,9 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 | /pacman | Arch-Pacman工具 |
 | /pkg | Arch套件查詢資訊工具  |
 | /cmd | Arch指令尋找所屬套件  |
+| /kick | 踢掉使用者 |
+| /ban | 封鎖使用者 |
+| /unban | 解封使用者 |
 | /status | 更改Discord 機器人狀態 |
 | /updateInfo | 查看更新內容 |
 | /version | 顯示版本|
