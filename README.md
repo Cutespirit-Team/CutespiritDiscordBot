@@ -8,7 +8,7 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 | /help | 顯示幫助 |
 | /showweb | 顯示官網 |
 | /count | 倒數計時 |
-| /wearechina | 我們是中國 |
+| /weareroc | 我們是中國 |
 | /sendmsg | 次數 訊息 [選項] 傳送訊息 --help可以查看幫助 |
 | /calc | 數字x 數字y [選項] 計算機 --help可以查看幫助 |
 | /time | 時間 |
