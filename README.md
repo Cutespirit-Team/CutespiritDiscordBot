@@ -63,7 +63,7 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 ## 關於我們 About Us
 
 [Team Website](www.tershi.ml) <br>
-[Team Facebook](https://www.facebook.com/shanling.team/) <br>
+[Team Facebook](https://www.facebook.com/cutespirit05428/) <br>
 [XiaTerShi YouTube](https://www.youtube.com/channel/UCPdpFDFOp3sPbZhRkaQVaQA) <br>
 [XiaTerShi FaceBook](https://www.facebook.com/Tershi25648) <br>
 [Tershi MailServer](https://mail.tershi.ml) <br>
