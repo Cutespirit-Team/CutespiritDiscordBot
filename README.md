@@ -3,24 +3,42 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 這是一款使用Python寫的Discord Bot，這是利用discord.py做成的，目前也正在維護中，也有在定時更新。<br>
 目前功能:<br>
 
-| 用法： /指令 | [選項...] [參數...] |
+### 一般：
+| 用法/指令 | [選項...] [參數...] | 描述 |
 |-----|-----|
-| /help | 顯示幫助 |
-| /showweb | 顯示官網 |
-| /count | 倒數計時 |
-| /weareroc | 我們是中國 |
-| /sendmsg | 次數 訊息 [選項] 傳送訊息 --help可以查看幫助 |
-| /calc | 數字x 數字y [選項] 計算機 --help可以查看幫助 |
-| /time | 時間 |
-| /pacman | Arch-Pacman工具 |
-| /pkg | Arch套件查詢資訊工具  |
-| /cmd | Arch指令尋找所屬套件  |
-| /kick | 踢掉使用者 |
-| /ban | 封鎖使用者 |
-| /unban | 解封使用者 |
-| /status | 更改Discord 機器人狀態 |
-| /updateInfo | 查看更新內容 |
-| /version | 顯示版本|
+| /help | 無 | 顯示幫助 |
+| /sendmsg | 次數 訊息 [選項] | 傳送訊息 --help可以查看幫助 |
+| /calc | 數字x 數字y [選項] | 計算機 --help可以查看幫助 |
+| /time | [選項] | 顯示時間 --help可以查看幫助 |
+| /count | 無 | 倒數計時 |
+| /weareroc | 無 | 我們是中國(中華民國) |
+| /showweb | 無 |顯示官網 |
+| /updateinfo | 無 | 查看更新內容 |
+| /version | 無 | 顯示版本 |
+
+### ArchLinux功能：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|
+| /pacman | <操作> 套件 | Arch-pacman工具 --help可以查看幫助 |
+| /pkg | 套件 | Arch套件查詢資訊工具 --help可以查看幫助 |
+| /cmd | 指令 | Arch指令尋找所屬套件 --help可以查看幫助 |
+
+### Dicord功能：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|
+| /status | 文字 | 更改Discord 機器人狀態 |
+| /kick | USER | 踢掉使用者 |
+| /ban | USER | 封鎖使用者 |
+| /unban | USER | 解封使用者 |
+
+### YouTube音樂功能：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|
+| /joing | 無 | 加入到語音頻道 |
+| /play | URL | 播放YouTube音樂 |
+| /pause | 無 | 暫停播放YouTube音樂 |
+| /resume | 無 | 恢復播放YouTube音樂 |
+| /stop | 無 | 停止播放YouTube音樂 |
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
