@@ -7,12 +7,18 @@ from datetime import datetime #這是時間
 from datetime import timedelta 
 from datetime import date #時間
 from discord.ext import commands
+from discord.utils import get
+from discord import FFmpegPCMAudio
+from discord import TextChannel
+from discord_slash import SlashCommand , SlashContext
+from discord_slash.utils.manage_commands import create_choice, create_option
+from youtube_dl import YoutubeDL
 import math #數學
 import time	#可以處理時間
 
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
-TOKEN = 'Your Token Here'idDebug = False
+TOKEN = 'Your Token Here'
 idDebug = False
     #參數設定
 capCountDown111text = "2022/06/04 08:30 AM" #111會考日期文字
@@ -24,14 +30,17 @@ tcteCountDown111 = datetime(2022,5,7,10,15) #111統測日期
 ceecCountDown111text = "2022/05/15 09:20 AM" #111學測日期文字
 ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
 
-TershiBirthday18text = "2022/00/00" #夏特稀111生日文字
-TershiBirthday18 = datetime(2022,0,00,0,0) #夏特稀111生日
+TershiBirthday18text = "2022/05/26" #夏特稀111生日文字
+TershiBirthday18 = datetime(2022,5,26,0,0) #夏特稀111生日
 
 
 YahooStoptext = "2021/05/04" #Yahoo停止日文字
 YahooStop = datetime(2021,5,4) #Yahoo停止日
 
 client = commands.Bot(command_prefix='/')
+slash = SlashCommand(client, sync_commands=True)
+yt_players = {}
+guild_ids=[866199579014987816]
 
 def getCount(deadline): #把deadline(過期 就是到期) 放進來
 	#today = date.today() #現在日期
@@ -67,69 +76,382 @@ async def on_member_join(self, member):
 		await guild.system_channel.send(to_send)
 		print('{member.mention} has joined the group')
 
-@client.command(name='clear')
-async def clear(ctx ,num:int):
- 	print('cleared')
- 	await ctx.channel.purge(limit=num+1)
-	print('The Channel Text have been cleared successfully!')
+@slash.slash(
+	name="clear",
+	description="用於清除(收回)頻道內之訊息數",
+	guild_ids=guild_ids
+)
+#@client.command(name='clear')
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx:SlashContext ,num:int, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /clear 訊息數
+		變數：
+			訊息數: int
+		說明：
+			用於清除(收回)頻道內之訊息數
+			''')
+	else:
+		print('cleared')
+		await ctx.channel.purge(limit=num+1)
+		await ctx.send('刪除成功')
+		print('The Channel Text have been cleared successfully!')
 
-@client.command(name='kick')
-async def kick(ctx, member : discord.Member, *,reason=None):
-    await member.kick(reason=reason)
-	await message.channel.send('已成功踢掉{discord.Member}！')
-	print('{discord.Member} has been kicked successfully!')
+@slash.slash(
+	name="kick",
+	description="用於踢出在伺服器中的使用者",
+	guild_ids=guild_ids
+)
+#@client.command(name='kick')
+@commands.has_permissions(manage_messages=True)
+async def kick(ctx, member : discord.Member, *,reason=None, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /kick USER
+		變數：
+			USER: String
+		說明：
+			用於踢出在伺服器中的使用者
+			''')
+	else:
+		await member.kick(reason=reason)
+		await message.channel.send('已成功踢掉{discord.Member}！')
+		print('{discord.Member} has been kicked successfully!')
 
-@client.command(name='ban')
-async def ban(ctx, member:discord.Member , *, reason=None):
-	await member.ban(reason=reason)
-	await message.channel.send('已成功ban {discord.Member}！')
-	print('{discord.Member} has been banned successfully!')
+@slash.slash(
+	name="ban",
+	description="用於封鎖尚未封鎖的使用者",
+	guild_ids=guild_ids
+)
+#@client.command(name='ban')
+@commands.has_permissions(manage_messages=True)
+async def ban(ctx, member:discord.Member , *, reason=None, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /ban USER
+		變數：
+			USER: String
+		說明：
+			用於封鎖尚未封鎖的使用者
+			''')
+	else:
+		await member.ban(reason=reason)
+		await message.channel.send('已成功ban {discord.Member}！')
+		print('{discord.Member} has been banned successfully!')
 
-@client.command(name='unban')
-async def unban(ctx , * , member):
-	banned_users = await ctx.guild.bans()
-	member_name, member_discriminator = member.split('#')
-	for ban_entry in banned_users:
-		user = ban_entry.user
-		if (user.name, user.discriminator) == (member_name, member_discriminator):
-			await ctx.guild.unban(user)
-			await ctx.send(f'Unbanned {user.mention}')
-			return
-			await message.channel.send('已成功解封{discord.Member}！')
-			print('{discord.Member} has been unbanned successfully!')
-	
+@slash.slash(
+	name="unban",
+	description="用於解封已經被封鎖的使用者",
+	guild_ids=guild_ids
+)
+#@client.command(name='unban')
+@commands.has_permissions(manage_messages=True)
+async def unban(ctx , * , member, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /unban USER
+		變數：
+			USER: String
+		說明：
+			用於解封已經被封鎖的使用者
+			''')
+	else:
+		banned_users = await ctx.guild.bans()
+		member_name, member_discriminator = member.split('#')
+		for ban_entry in banned_users:
+			user = ban_entry.user
+			if (user.name, user.discriminator) == (member_name, member_discriminator):
+				await ctx.guild.unban(user)
+				await ctx.send(f'Unbanned {user.mention}')
+				return
+				await message.channel.send('已成功解封{discord.Member}！')
+				print('{discord.Member} has been unbanned successfully!')
+
+@slash.slash(
+	name="join",
+	description="用於加入訊息發送者所屬的語音頻道",
+	guild_ids=guild_ids
+)
+#@client.command(pass_context=True)
+async def join(ctx, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /join
+		說明：
+			用於加入訊息發送者所屬的語音頻道
+			''')
+	else:
+		channel = ctx.author.voice.channel
+		await channel.connect()
+		await ctx.send('Connected!')
+		print('Send Text: Connected!')
+		print('Bot: Connected to the Voice Channel')
+
+@slash.slash(
+	name="leave",
+	description="用於離開Bot所屬的語音頻道",
+	guild_ids=guild_ids
+)
+#@client.command(pass_context=True)
+async def leave(ctx, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /leave
+		說明：
+			用於離開Bot所屬的語音頻道
+			''')
+	else:
+		if (ctx.voice_client): # If the bot is in a voice channel 
+			await ctx.guild.voice_client.disconnect() # Leave the channel
+			await ctx.send('Bot left')
+			print('Bot: The Bot left the Voice Channel')
+		else: # But if it isn't
+			await ctx.send("I'm not in a voice channel, use the join command to make me join")
+			print('Bot: Not in Voice Channel')
+			print("Send Text: I'm not in a voice channel, use the join command to make me join")
+
+@slash.slash(
+	name="play",
+	description="用於播放YouTube影片or音樂音量",
+	guild_ids=guild_ids
+)
+#@client.command(pass_context=True)
+async def play(ctx, url, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /play URL
+		變數：
+			URL: String
+		說明：
+			用於播放YouTube影片or音樂音量。
+			''')
+	else:
+		YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
+		FFMPEG_OPTIONS = {
+			'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+		voice = get(client.voice_clients, guild=ctx.guild)
+
+		if not voice.is_playing():
+			with YoutubeDL(YDL_OPTIONS) as ydl:
+				info = ydl.extract_info(url, download=False)
+			URL = info['url']
+			voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
+			voice.is_playing()
+			await ctx.send('playing')
+			print('Bot: Playing the Audio')
+			print("Send Text: playing")
+		else:
+			await ctx.send('There is no Audio playing now')
+			print('Bot: There is no Audio playing now')
+			print("Send Text: There is no Audio playing now")
+
+@slash.slash(
+	name="resume",
+	description="用於暫停播放正在播放的YouTube影片or音樂音量",
+	guild_ids=guild_ids
+)
+#@client.command()
+async def resume(ctx, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /resume
+		說明：
+			用於暫停播放正在播放的YouTube影片or音樂音量。
+			''')
+	else:
+		voice = get(client.voice_clients, guild=ctx.guild)
+		if not voice.is_playing():
+			voice.resume()
+			await ctx.send('resuming')
+			print('Bot: Resuming The Audio')
+			print("Send Text: resuming")
+		else:
+			await ctx.send('There is no Audio playing now')
+			print('Bot: There is no Audio playing now')
+			print("Send Text: There is no Audio playing now")
+
+@slash.slash(
+	name="volume",
+	description="用於修改YouTube影片or音樂音量",
+	guild_ids=guild_ids
+)
+#@client.command(name="volume")                          
+async def volume(ctx, volume: float, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /volume 音量
+		變數：
+			音量: int
+		說明：
+			用於修改YouTube影片or音樂音量。
+			''')
+	else:
+		voice = get(client.voice_clients, guild=ctx.guild)  
+		if 0 <= volume <= 100:
+			if voice.is_playing():
+				new_volume = volume / 100
+				voice.source .volume = new_volume
+				print('Bot: set volume =',new_volume)
+			else:
+				await ctx.reply("#")
+		else:
+			await ctx.reply("#")
+		await ctx.reply(f"Volume: {volume}")
+
+@slash.slash(
+	name="pause",
+	description="用於暫停播放正在播放的YouTube影片or音樂。",
+	guild_ids=guild_ids
+)
+#@client.command()
+async def pause(ctx, cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /pause
+		說明：
+			用於暫停播放正在播放的YouTube影片or音樂。
+			''')
+	else:
+		voice = get(client.voice_clients, guild=ctx.guild)
+		if voice.is_playing():
+			voice.pause()
+			await ctx.send('paused')
+			print('Bot: Audio is paused')
+			print('Send Text: paused')
+		else:
+			await ctx.send('There is no Audio playing now')
+			print('Bot: There is no Audio playing now')
+			print("Send Text: There is no Audio playing now")
+
+@slash.slash(
+	name="stop",
+	description="用於停止播放YouTube影片or音樂。",
+	guild_ids=guild_ids
+)
+#@client.command()
+async def stop(ctx ,cmd=None):
+	if cmd =='--help':
+		await ctx.send('''
+		用法： /stop
+		說明：
+			用於停止播放YouTube影片or音樂。
+			''')
+	else:
+		voice = get(client.voice_clients, guild=ctx.guild)
+		if voice.is_playing():
+			voice.stop()
+			await ctx.send('Stopping...')
+			print('Bot: Stopping The Audio')
+			print("Send Text: Stopping...")
+		else:
+			await ctx.send('There is no Audio playing now')
+			print('Bot: There is no Audio playing now')
+			print("Send Text: There is no Audio playing now")
+
+@slash.slash(
+	name="updateinfo",
+	description="此命令可查看更新內容",
+	guild_ids=guild_ids
+)
+async def updateinfo(ctx):
+	#if message.content == '/更新內容' or message.content == '/updateinfo' or '/updateinfo' in message.content:
+	await ctx.send('''
+		更新日期   - 版本 - 更新內容
+		2021/07/19 - v0.1 - 初始版本(由TershiCloud Telegram Bot修改)
+		2021/07/19 - v0.2 - 增加/status指令，可以隨時更改Discord狀態，刪除lang語言功能。
+		2021/07/20 - v0.3 - 增加/kick /ban /unban指令，可以隨時踢人，封鎖，解封人。
+		2021/07/20 - v0.4 - 將/time --help顯示/week問題修復。
+		2021/07/20 - v0.5 - 完善各--help幫助內容。
+		2021/07/20 - v0.6 - 修復Bug。
+		2021/07/20 - v0.7 - 並加入YouTube之/join /play /pause /resume /stop /leave功能。
+		''')
+
+@slash.slash(
+	name="version",
+	description="此命令可查看版本",
+	guild_ids=guild_ids
+)
+async def version(ctx):
+	#if message.content == '/更新內容' or message.content == '/version' or '/version' in message.content:
+	await ctx.send('目前版本：1.4.1')
+
+@client.command(name='status')
+async def status(ctx, STATUS: str):
+	# tmp = message.content.split(' ')
+	# text = ''
+	# for i in range(1,len(tmp)):
+	# 	text = text + str(tmp[i])
+	# game = discord.Game(text)
+	game = discord.Game(STATUS)
+	await client.change_presence(status=discord.Status.idle, activity=game)
+	await client.process_commands(message)
+	await ctx.send('將狀態更改為:' + message)
+	print('將狀態更改為:' + message)
+
+@slash.slash(
+	name="help",
+	description="幫助",
+	guild_ids=guild_ids
+)
+#if message.content == '幫助' or message.content == 'help' or '/help' in  message.content:	
+#or兩方有一個為True就成立(邏輯運算子) 最後一個in的語法是 只要"/help"有在傳來的訊息裡面就True
+async def help(ctx):
+	text = '''
+用法： /指令 [選項...] [參數...]
+	一般：
+		/help 顯示幫助
+		/sendmsg 次數 訊息 [選項] | 傳送訊息 --help可以查看幫助
+		/calc 數字x 數字y [選項] | 計算機 --help可以查看幫助
+		/time [選項] | 顯示時間 --help可以查看幫助
+		/count | 倒數計時
+		/weareroc | 我們是中國(中華民國)
+		/showweb | 顯示官網
+		/updateinfo | 查看更新內容
+		/version | 顯示版本
+	ArchLinux功能：
+		/pacman <操作> 套件 | Arch-pacman工具 --help可以查看幫助
+		/pkg 套件 | Arch套件查詢資訊工具 --help可以查看幫助
+		/cmd 指令 | Arch指令尋找所屬套件 --help可以查看幫助
+	Dicord功能：	
+		/status 文字 | 更改Discord 機器人狀態
+		/kick USER | 踢掉使用者
+		/ban USER | 封鎖使用者
+		/unban USER | 解封使用者
+	YouTube音樂功能：
+		/join | 加入到語音頻道
+		/play URL | 播放YouTube音樂
+		/pause | 暫停播放YouTube音樂
+		/resume | 恢復播放YouTube音樂
+		/stop | 停止播放YouTube音樂
+			'''
+			#三個單引號或雙引號可以多行當字串
+	await ctx.send(text) #調用傳送訊息的方法 將聊天室的(id傳出去,文字傳出去)
+
+
+
+@client.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+		return
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send("Missing a required argument.  Do /help")
+		print('Bot:Missing a required argument.  Do /help')
+	if isinstance(error, commands.MissingPermissions):
+		await ctx.send("You dont have the permissions to run this command.")
+		print('You dont have the permissions to run this command.')
+	if isinstance(error, commands.BotMissingPermissions):
+		await ctx.send("I don't have permissions to do it!")
+		print("I don't have permissions to do it!")
+	else:
+		print("error not caught")
+		print(error) 
 
 @client.event
 async def on_message(message):
 	# don't respond to ourselves
 	if message.author == client.user:
 		return
-
-	if message.content == '幫助' or message.content == 'help' or '/help' in  message.content:	
-			#or兩方有一個為True就成立(邏輯運算子) 最後一個in的語法是 只要"/help"有在傳來的訊息裡面就True
-			text = '''
-	用法： /指令 [選項...] [參數...]
-	/help 顯示幫助
-	/showweb 顯示官網
-	/count 倒數計時
-	/weareroc 我們是中國(中華民國)
-	/sendmsg 次數 訊息 [選項] 傳送訊息 --help可以查看幫助
-	/calc 數字x 數字y [選項] 計算機 --help可以查看幫助
-	/time 時間
-	/pacman Arch-pacman工具
-	/pkg Arch套件查詢資訊工具
-	/cmd Arch指令尋找所屬套件
-	/status 更改Discord 機器人狀態
-	/kick 踢掉使用者
-	/ban 封鎖使用者
-	/unban 解封使用者
-	/updateinfo 查看更新內容
-	/version 顯示版本
-			'''
-			#三個單引號或雙引號可以多行當字串
-			await message.channel.send(text) #調用傳送訊息的方法 將聊天室的(id傳出去,文字傳出去)
-
-
 	if message.content == '顯示網站' or '/showweb' in message.content:
 		text = '''
 1. 靈萌官網 - https://cutespirit.tershi.cf
@@ -158,10 +480,14 @@ async def on_message(message):
 			if '--help' in text or ' —help' in text: #如果--help在text串列裡面
 				await message.channel.send('''
 				用法： /sendmsg 次數 訊息 [選項]
+				變數：
+					次數: int
+					訊息: String
+					秒: int
 				選項：
-				--count 計數器
-				--sleep [秒] 間隔 0<=time<=10
-				--help 顯示幫助
+				--count | 計數器 用來顯示字串+x索引值
+				--sleep 秒 | 間隔秒數 每次執行間隔x秒 間隔 0<=x<=10
+				--help | 顯示幫助
 				''')
 			else:
 				await message.channel.send('請輸入該有參數 /sendmsg 次數 訊息 [選項] 使用--help可以查看幫助')
@@ -266,7 +592,7 @@ async def on_message(message):
 				await message.channel.send(Ctext + ' BMI=' + str(bmi))
 			elif '--help' in text or '—help' in text:
 				await message.channel.send('''
-				用法： /calc [選項] [參數]
+				用法： /calc --bmi [選項]
 				選項：
 				--check 顯示是否過重或是過輕
 				--help 顯示幫助
@@ -355,14 +681,14 @@ async def on_message(message):
 			text = '''
 			用法： /week [選項]
 			選項：
-			--year 取得年份
-			--month 取得月份
-			--date 取得日期
-			--hour 取得小時
-			--minute 取得分鐘
-			--secound 取得秒數
-			--week 取得星期幾
-			--help 顯示幫助
+			--year | 取得年份
+			--month | 取得月份
+			--date | 取得日期
+			--hour | 取得小時
+			--minute | 取得分鐘
+			--secound | 取得秒數
+			--week | 取得星期幾
+			--help | 顯示幫助
 			'''
 			await message.channel.send(text)
 		elif counter == 1: #如果沒有輸入--help 並且count是1
@@ -371,23 +697,14 @@ async def on_message(message):
 			nowtime = '現在時間：' + today.strftime("%Y") + '年'+ today.strftime("%m") +'月' +today.strftime("%d") + '日' + today.strftime("%H") + '時' +today.strftime("%M") + '分' + today.strftime("%S") + '秒' 
 			await message.channel.send(nowtime)
 	
-	if message.content == '/更新內容' or message.content == '/updateinfo' or '/updateinfo' in message.content:
-		await message.channel.send('''
-更新日期   - 版本 - 更新內容
-2021/07/19 - v0.1 - 初始版本(由TershiCloud Telegram Bot修改)
-2021/07/19 - v0.2 - 增加/status指令，可以隨時更改Discord狀態，刪除lang語言功能。
-2021/07/20 - v0.3 - 增加/kick /ban /unban指令，可以隨時踢人，封鎖，解封人。
-		''')
-	
-	if message.content == '/更新內容' or message.content == '/version' or '/version' in message.content:
-		await message.channel.send('目前版本：1.4.1')
-	
 	if message.content == '/pacman'  or '/pacman' in message.content:
 		text = str(message.content) #將文字放進來 轉成字串
 		text = text.split() #將文字以空格切割
 		if '--help' in text or '—help' in text or '-h' in text:
 			await message.channel.send('''
-			pacman -h 用法:  pacman <操作> [...]
+		用法:  pacman <操作> 套件
+		變數：
+			套件: String
 		操作：
 			-h 幫助
 			-V 版本
@@ -395,8 +712,8 @@ async def on_message(message):
 			-Ss搜尋 [選項] [檔案]
 			-Q 佇列 [選項] [軟體包]
 			-Qi資訊	[選項] <檔案>
-
-使用 'pacman {-h --help}' 及某個操作以查看可用選項
+		說明：
+			此命令可執行某個pacman操作，使用 'pacman {-h --help}' 及某個操作以查看可用選項
 			''')
 		elif '-S' not in text or '--sync' not in text or '-Syy' not in text or '-Sy' not in text or '-U' not in text or '--upgrade' not in text or '--upgrade' not in text:
 			temp = 'pacman ' #設定temp變數
@@ -407,67 +724,75 @@ async def on_message(message):
 			output = subprocess.getstatusoutput(temp) #執行結果
 			txt += output[1] #[0,輸出指令] 將0排除
 			await message.channel.send(txt)
+
+@slash.slash(
+	name="pkg",
+	description="此命令可查找Arch Repo的套件資訊",
+	guild_ids=guild_ids
+)
+async def pkg(ctx, pkg: str):
+#if message.content == '/套件' or message.content == '/pkg' or '/pkg' in message.content:
+#	text = str(message.content) #將文字放進來 轉成字串
+#	if '--help' in text or '—help' in text or '-h' in text:
+	if pkg == '--help':
+		await ctx.send('''
+	用法： /pkg 套件
+	變數：
+		套件: String
+	說明：
+		此命令可查找Arch Repo的套件資訊，Repo有「core、community、extra、archlinuxcn、blackarch」
+		''')
+	else:
+#		text = text.split() #將文字以空格切割
+		await ctx.send('正在尋找該套件之資訊...請稍後...')
+
+#		temp = 'pacman -Si ' #設定temp變數
+#		for i in range(1,len(text[:])): #/command後面的字
+#			temp += text[i] + ' ' #放進來
+		temp = 'pacman -Si ' + pkg
+		result = os.popen(temp) #將/command後面的指令執行
+		txt = temp
+		output = subprocess.getstatusoutput(temp) #執行結果
+		txt += output[1] #[0,輸出指令] 將0排除
+		await ctx.send(txt)
 	
-	if message.content == '/套件' or message.content == '/pkg' or '/pkg' in message.content:
-		text = str(message.content) #將文字放進來 轉成字串
-		if '--help' in text or '—help' in text or '-h' in text:
-			await message.channel.send('''
-			用法： /pkg [參數]
-		說明：
-			此命令可查找Arch Repo的套件資訊，Repo有「core、community、extra、archlinuxcn、blackarch」
-			''')
-		else:
-			text = text.split() #將文字以空格切割
-			await message.channel.send('正在尋找該套件之資訊...請稍後...')
 
-			temp = 'pacman -Si ' #設定temp變數
-			for i in range(1,len(text[:])): #/command後面的字
-				temp += text[i] + ' ' #放進來
-			result = os.popen(temp) #將/command後面的指令執行
-			txt = temp
-			output = subprocess.getstatusoutput(temp) #執行結果
-			txt += output[1] #[0,輸出指令] 將0排除
-			await message.channel.send(txt)
-	
-	if message.content == '/指令' or message.content == '/cmd' or '/cmd' in message.content:
-		text = str(message.content) #將文字放進來 轉成字串
-		if '--help' in text or '—help' in text or '-h' in text:
-			await message.channel.send('''
-			用法： /cmd [參數]
-		說明：
-			此命令可查找Arch 指令所屬套件，Repo有「core、community、extra、archlinuxcn、blackarch」
-			''')
-		else:
-			await message.channel.send('正在尋找該指令所屬的套件...請稍後...')
-			text = text.split() #將文字以空格切割
-			temp = 'pacman -F ' #設定temp變數
-			for i in range(1,len(text[:])): #/command後面的字
-				temp += text[i] + ' ' #放進來
-			result = os.popen(temp) #將/command後面的指令執行
-			txt = temp
-			output = subprocess.getstatusoutput(temp) #執行結果
-			txt += output[1] #[0,輸出指令] 將0排除
-			txt = txt.split('\n')
-			for i in range(0,len(txt)):
-				if '錯誤' in txt[i]:
-					txt[i] = ''
-			finaltxt = ''
-			for i in range(0,len(txt)):
-				#print(txt[i])
-				finaltxt = finaltxt + str(txt[i]) + '\n'
-			await message.channel.send(finaltxt)
-
-	if  message.content == '/debug' or '/debug' in  message.content:
-		await message.channel.send('功能尚未開啟。')
-
-	if message.content.startswith('/status'):
-		tmp = message.content.split(' ')
-		text = ''
-		for i in range(1,len(tmp)):
-			text = text + str(tmp[i])
-		game = discord.Game(text)
-		await client.change_presence(status=discord.Status.idle, activity=game)
-	await client.process_commands(message)
+@slash.slash(
+	name="cmd",
+	description="此命令可查找Arch 指令所屬套件",
+	guild_ids=guild_ids
+)
+async def cmd(ctx, pkg: str):
+	#text = str(message.content) #將文字放進來 轉成字串
+	#if '--help' in text or '—help' in text or '-h' in text:
+	if str == '--help':
+		await ctx.send('''
+	用法： /cmd 套件
+	變數：
+		套件: String
+	說明：
+		此命令可查找Arch 指令所屬套件，Repo有「core、community、extra、archlinuxcn、blackarch」
+		''')
+	else:
+		await ctx.send('正在尋找該指令所屬的套件...請稍後...')
+		# text = text.split() #將文字以空格切割
+		# temp = 'pacman -F ' #設定temp變數
+		# for i in range(1,len(text[:])): #/command後面的字
+			# temp += text[i] + ' ' #放進來
+		temp = 'pacman -F ' + pkg
+		result = os.popen(temp) #將/command後面的指令執行
+		txt = temp
+		output = subprocess.getstatusoutput(temp) #執行結果
+		txt += output[1] #[0,輸出指令] 將0排除
+		txt = txt.split('\n')
+		for i in range(0,len(txt)):
+			if '錯誤' in txt[i]:
+				txt[i] = ''
+		finaltxt = ''
+		for i in range(0,len(txt)):
+			#print(txt[i])
+			finaltxt = finaltxt + str(txt[i]) + '\n'
+		await ctx.send(finaltxt)
 
 	#discord.Status.<狀態>，可以是online,offline,idle,dnd,invisible
 #intents = discord.Intents.default()
