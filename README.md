@@ -49,26 +49,18 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 ``./install.sh``
 
 ### **Arch-Linux**<br>
-**Step 1.** ``sudo pacman -Syy python3 python3-pip httpd`` <br>
+**Step 1.** ``sudo pacman -Syy python3 python3-pip`` <br>
 **Step 2.**``pip3 install discord.py``<br>
-**Step 3.**``sudo systemctl start httpd``<br>
-**Step 4.**``mkdir /srv/http/yt``<br>
-**Step 5.**``sudo chown USER:USER /srv/http/yt``<br>
 
 ### **Debian/Ubuntu**<br>
 **Step 1.**``sudo apt update&&sudo apt upgrade -y``<br>
-**Step 2.**``sudo apt install httpd python3 python3-pip``<br>
+**Step 2.**``sudo apt install python3 python3-pip``<br>
 **Step 3.**``pip3 install discord.py``<br>
-**Step 4.**``sudo mkdir /var/www/html/yt``<br>
-**Step 5.**``sudo chown USER:USER /var/www/html/yt``<br>
-**Step 6.**``sudo service httpd start``<br>
 
 ### **Termux(For Android)**<br>
 **Step 1.**``pkg update&&pkg upgrade``<br>
-**Step 2.**``pkg install httpd python3 python3-pip``<br>
+**Step 2.**``pkg install python3 python3-pip``<br>
 **Step 3.**``pip3 install discord.py``<br>
-**Step 4.**``mkdir /var/www/html/yt``<br>
-**Step 5.**``apachectl``<br>
 
 ### Run 運行
 **Step 1.**``git clone https://github.com/Cutespirit-Team/CutespiritDiscordBot``<br>
