@@ -1,8 +1,8 @@
 import discord
 import os
 import subprocess
-from pprint import pprint	#這是print的加強版 可以讓文字自動排版
-from datetime import datetime	#一樣處理時間
+from pprint import pprint    #這是print的加強版 可以讓文字自動排版
+from datetime import datetime    #一樣處理時間
 from datetime import datetime #這是時間
 from datetime import timedelta 
 from datetime import date #時間
@@ -14,7 +14,7 @@ from discord_slash import SlashCommand , SlashContext
 from discord_slash.utils.manage_commands import create_choice, create_option
 from youtube_dl import YoutubeDL
 import math #數學
-import time	#可以處理時間
+import time    #可以處理時間
 
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
@@ -81,7 +81,7 @@ async def on_ready():
 	print('------')
 	
 @client.event
-async def on_command_error(ctx, error):
+async def on_slash_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		return
 	if isinstance(error, commands.MissingRequiredArgument):
@@ -234,7 +234,7 @@ async def leave(ctx: SlashContext, cmd=None):
 			用於離開Bot所屬的語音頻道
 			''')
 	else:
-		if (ctx.voice_client): # If the bot is in a voice channel 
+		if (ctx.guild.voice_client): # If the bot is in a voice channel 
 			await ctx.guild.voice_client.disconnect() # Leave the channel
 			await ctx.send('Bot left')
 			print('Bot: The Bot left the Voice Channel')
@@ -250,11 +250,11 @@ async def leave(ctx: SlashContext, cmd=None):
 )
 #@client.command(pass_context=True)
 async def play(ctx, url, cmd=None):
-	channel = ctx.author.voice.channel
-	await channel.connect()
-	await ctx.send('自動連接完成!')
-	print('Send Text: 自動連接完成!')
-	print('Bot: Auto Connected to the Voice Channel')
+	# channel = ctx.author.voice.channel
+	# await channel.connect()
+	# await ctx.send('自動連接完成!')
+	# print('Send Text: 自動連接完成!')
+	# print('Bot: Auto Connected to the Voice Channel')
 	if cmd =='--help':
 		await ctx.send('''
 		用法： /play URL
