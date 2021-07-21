@@ -20,6 +20,20 @@ import time	#可以處理時間
 	#Bot的Token 沒有的要去 t.me/BotFather申請
 TOKEN = 'Your Token Here'
 idDebug = False
+GroupID = [866199579014987816]
+	#About設定
+dcDescription = '我們是一群在網路上熱愛寫程式的學生'
+autherIcon = 'https://cutespirit.tershi.cf/Cutespirit/icon.png'
+thumbnailIcon = 'https://cutespirit.tershi.cf/Cutespirit/icon.png'
+developeDate = '2021/07/19'
+nowVersion = '0.7'
+language = '正體中文'
+nowAge = '17'
+nowGrage = '升高三'
+usingSystem = 'Arch-Linux'
+creationExperience = '寫程式多年，跟小弟弟一起研究'
+updateDate = '2021/07/21'
+
     #參數設定
 capCountDown111text = "2022/06/04 08:30 AM" #111會考日期文字
 capCountDown111 = datetime(2022,6,4,8,30)#111會考日期
@@ -33,14 +47,12 @@ ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
 TershiBirthday18text = "2022/05/26" #夏特稀111生日文字
 TershiBirthday18 = datetime(2022,5,26,0,0) #夏特稀111生日
 
-
 YahooStoptext = "2021/05/04" #Yahoo停止日文字
 YahooStop = datetime(2021,5,4) #Yahoo停止日
 
 client = commands.Bot(command_prefix='/')
 slash = SlashCommand(client, sync_commands=True)
 yt_players = {}
-guild_ids=[866199579014987816]
 
 def getCount(deadline): #把deadline(過期 就是到期) 放進來
 	#today = date.today() #現在日期
@@ -67,6 +79,26 @@ def getExamCountText():
 async def on_ready():
 	print('登入成功')
 	print('------')
+	
+@client.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+		return
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send("Error: Missing a required argument.  Do /help")
+		print('Bot:Missing a required argument.  Do /help')
+	if isinstance(error, commands.MissingPermissions):
+		await ctx.send("Error: You dont have the permissions to run this command.")
+		print('You dont have the permissions to run this command.')
+	if isinstance(error, commands.BotMissingPermissions):
+		await ctx.send("Error: I don't have permissions to do it!")
+		print("I don't have permissions to do it!")
+	if isinstance(error, discord.errors.ClientException):
+		await ctx.send('錯誤：已經連接到語音頻道了')
+	else:
+		print("error not caught")
+		print(error) 
+
 
 @client.event
 async def on_member_join(self, member):
@@ -79,7 +111,7 @@ async def on_member_join(self, member):
 @slash.slash(
 	name="clear",
 	description="用於清除(收回)頻道內之訊息數",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(name='clear')
 @commands.has_permissions(manage_messages=True)
@@ -101,7 +133,7 @@ async def clear(ctx:SlashContext ,num:int, cmd=None):
 @slash.slash(
 	name="kick",
 	description="用於踢出在伺服器中的使用者",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(name='kick')
 @commands.has_permissions(manage_messages=True)
@@ -122,7 +154,7 @@ async def kick(ctx, member : discord.Member, *,reason=None, cmd=None):
 @slash.slash(
 	name="ban",
 	description="用於封鎖尚未封鎖的使用者",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(name='ban')
 @commands.has_permissions(manage_messages=True)
@@ -143,7 +175,7 @@ async def ban(ctx, member:discord.Member , *, reason=None, cmd=None):
 @slash.slash(
 	name="unban",
 	description="用於解封已經被封鎖的使用者",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(name='unban')
 @commands.has_permissions(manage_messages=True)
@@ -171,7 +203,7 @@ async def unban(ctx , * , member, cmd=None):
 @slash.slash(
 	name="join",
 	description="用於加入訊息發送者所屬的語音頻道",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(pass_context=True)
 async def join(ctx, cmd=None):
@@ -191,10 +223,10 @@ async def join(ctx, cmd=None):
 @slash.slash(
 	name="leave",
 	description="用於離開Bot所屬的語音頻道",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(pass_context=True)
-async def leave(ctx, cmd=None):
+async def leave(ctx: SlashContext, cmd=None):
 	if cmd =='--help':
 		await ctx.send('''
 		用法： /leave
@@ -214,10 +246,15 @@ async def leave(ctx, cmd=None):
 @slash.slash(
 	name="play",
 	description="用於播放YouTube影片or音樂音量",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(pass_context=True)
 async def play(ctx, url, cmd=None):
+	channel = ctx.author.voice.channel
+	await channel.connect()
+	await ctx.send('自動連接完成!')
+	print('Send Text: 自動連接完成!')
+	print('Bot: Auto Connected to the Voice Channel')
 	if cmd =='--help':
 		await ctx.send('''
 		用法： /play URL
@@ -238,9 +275,9 @@ async def play(ctx, url, cmd=None):
 			URL = info['url']
 			voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
 			voice.is_playing()
-			await ctx.send('playing')
-			print('Bot: Playing the Audio')
-			print("Send Text: playing")
+			await ctx.send('現在正在播放:' +url)
+			print('Bot: Playing the Audio' +url)
+			print("Send Text: 現在正在播放:" +url)
 		else:
 			await ctx.send('There is no Audio playing now')
 			print('Bot: There is no Audio playing now')
@@ -249,7 +286,7 @@ async def play(ctx, url, cmd=None):
 @slash.slash(
 	name="resume",
 	description="用於暫停播放正在播放的YouTube影片or音樂音量",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command()
 async def resume(ctx, cmd=None):
@@ -274,7 +311,7 @@ async def resume(ctx, cmd=None):
 @slash.slash(
 	name="volume",
 	description="用於修改YouTube影片or音樂音量",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command(name="volume")                          
 async def volume(ctx, volume: float, cmd=None):
@@ -302,7 +339,7 @@ async def volume(ctx, volume: float, cmd=None):
 @slash.slash(
 	name="pause",
 	description="用於暫停播放正在播放的YouTube影片or音樂。",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command()
 async def pause(ctx, cmd=None):
@@ -327,7 +364,7 @@ async def pause(ctx, cmd=None):
 @slash.slash(
 	name="stop",
 	description="用於停止播放YouTube影片or音樂。",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #@client.command()
 async def stop(ctx ,cmd=None):
@@ -352,7 +389,7 @@ async def stop(ctx ,cmd=None):
 @slash.slash(
 	name="updateinfo",
 	description="此命令可查看更新內容",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 async def updateinfo(ctx):
 	#if message.content == '/更新內容' or message.content == '/updateinfo' or '/updateinfo' in message.content:
@@ -365,16 +402,17 @@ async def updateinfo(ctx):
 		2021/07/20 - v0.5 - 完善各--help幫助內容。
 		2021/07/20 - v0.6 - 修復Bug。
 		2021/07/20 - v0.7 - 並加入YouTube之/join /play /pause /resume /stop /leave功能。
+		2021/07/21 - v0.8 - 完善沒有加參數無法顯示的錯誤。
 		''')
 
 @slash.slash(
 	name="version",
 	description="此命令可查看版本",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 async def version(ctx):
 	#if message.content == '/更新內容' or message.content == '/version' or '/version' in message.content:
-	await ctx.send('目前版本：1.4.1')
+	await ctx.send('目前版本：' + nowVersion)
 
 @client.command(name='status')
 async def status(ctx, STATUS: str):
@@ -390,13 +428,67 @@ async def status(ctx, STATUS: str):
 	print('將狀態更改為:' + message)
 
 @slash.slash(
+	name="about",
+	description="關於我們",
+	guild_ids=GroupID
+)
+async def about(ctx):
+	embed=discord.Embed(title="靈萌bot", url="https://github.com/Cutespirit-Team/CutespiritDiscordBot", description=dcDescription, color=0x00ffd5)
+	embed.set_author(name="Cutesprit", url="https://cutespirit.tershi.cf/", icon_url=autherIcon)
+	embed.set_thumbnail(url=thumbnailIcon)
+	embed.add_field(name="開發日期", value=developeDate, inline=True)
+	embed.add_field(name="目前版本", value=nowVersion, inline=True)
+	embed.add_field(name="語言", value=language, inline=True)
+	embed.add_field(name="目前年齡", value=nowAge, inline=True)
+	embed.add_field(name="年級", value=nowGrage, inline=True)
+	embed.add_field(name="使用作業系統", value=usingSystem, inline=True)
+	embed.add_field(name="創作心得", value=creationExperience, inline=True)
+	embed.set_footer(text="更新日期: "+updateDate)
+	await ctx.send(embed=embed)
+
+@slash.slash(
 	name="help",
 	description="幫助",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 #if message.content == '幫助' or message.content == 'help' or '/help' in  message.content:	
 #or兩方有一個為True就成立(邏輯運算子) 最後一個in的語法是 只要"/help"有在傳來的訊息裡面就True
 async def help(ctx):
+	# embed=discord.Embed(title="靈萌bot", url="https://github.com/Cutespirit-Team/CutespiritDiscordBot", description="早安", color=0x00ffd5)
+	# embed.set_author(name="Cutesprit", url="https://cutespirit.tershi.cf/", icon_url="https://cutespirit.tershi.cf/Cutespirit/icon.png")
+	# embed.set_thumbnail(url="https://cutespirit.tershi.cf/Cutespirit/icon.png")
+	
+	# embed.add_field(name="一般：", value=" ", inline=True)
+	# embed.add_field(name="/help", value="顯示幫助", inline=True)
+	# embed.add_field(name="/sendmsg ", value="次數 訊息 [選項] | 傳送訊息 --help可以查看幫助", inline=True)
+	# embed.add_field(name="/calc", value="數字x 數字y [選項] | 計算機 --help可以查看幫助", inline=True)
+	# embed.add_field(name="/time", value="[選項] | 顯示時間 --help可以查看幫助", inline=True)
+	# embed.add_field(name="/count", value="倒數計時", inline=True)
+	# embed.add_field(name="/weareroc", value="我們是中國(中華民國)", inline=True)
+	# embed.add_field(name="/showweb", value="顯示官網", inline=True)
+	# embed.add_field(name="/updateinfo", value="查看更新內容", inline=True)
+	# embed.add_field(name="/version", value="顯示版本", inline=True)
+	# embed.add_field(name="/about", value="關於我們", inline=True)
+	
+	# embed.add_field(name="ArchLinux功能：", value=" ", inline=True)
+	# embed.add_field(name="/pacman", value="<操作> 套件 | Arch-pacman工具 --help可以查看幫助", inline=True)
+	# embed.add_field(name="/pkg", value="Arch套件查詢資訊工具 --help可以查看幫助", inline=True)
+	# embed.add_field(name="/cmd", value="Arch指令尋找所屬套件 --help可以查看幫助", inline=True)
+	
+	# embed.add_field(name="Dicord功能：", value=" ", inline=True)
+	# embed.add_field(name="/status", value="更改Discord 機器人狀態", inline=True)
+	# embed.add_field(name="/kick", value="踢掉使用者", inline=True)
+	# embed.add_field(name="/ban", value="封鎖使用者", inline=True)
+	# embed.add_field(name="/unban", value="解封使用者", inline=True)
+
+	# embed.add_field(name="YouTube音樂功能：", value=" ", inline=True)
+	# embed.add_field(name="/join", value="加入到語音頻道", inline=True)
+	# embed.add_field(name="/play", value="播放YouTube音樂", inline=True)
+	# embed.add_field(name="/pause", value="暫停播放YouTube音樂", inline=True)
+	# embed.add_field(name="/resume", value="恢復播放YouTube音樂", inline=True)
+	# embed.add_field(name="/stop", value="停止播放YouTube音樂", inline=True)
+	# embed.set_footer(text="更新日期: 2021/07/21")
+	# await ctx.send(embed=embed)
 	text = '''
 用法： /指令 [選項...] [參數...]
 	一般：
@@ -409,6 +501,7 @@ async def help(ctx):
 		/showweb | 顯示官網
 		/updateinfo | 查看更新內容
 		/version | 顯示版本
+		/about | 關於我們
 	ArchLinux功能：
 		/pacman <操作> 套件 | Arch-pacman工具 --help可以查看幫助
 		/pkg 套件 | Arch套件查詢資訊工具 --help可以查看幫助
@@ -427,25 +520,6 @@ async def help(ctx):
 			'''
 			#三個單引號或雙引號可以多行當字串
 	await ctx.send(text) #調用傳送訊息的方法 將聊天室的(id傳出去,文字傳出去)
-
-
-
-@client.event
-async def on_command_error(ctx, error):
-	if isinstance(error, commands.CommandNotFound):
-		return
-	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send("Missing a required argument.  Do /help")
-		print('Bot:Missing a required argument.  Do /help')
-	if isinstance(error, commands.MissingPermissions):
-		await ctx.send("You dont have the permissions to run this command.")
-		print('You dont have the permissions to run this command.')
-	if isinstance(error, commands.BotMissingPermissions):
-		await ctx.send("I don't have permissions to do it!")
-		print("I don't have permissions to do it!")
-	else:
-		print("error not caught")
-		print(error) 
 
 @client.event
 async def on_message(message):
@@ -637,6 +711,8 @@ async def on_message(message):
 			--help 顯示幫助
 			'''
 			await message.channel.send(text)
+		else:
+			await message.channel.send('請輸入該有的參數，使用「/calc --help」查看更多幫助')
 	
 	if message.content == '/時間' or message.content == '/time' or '/time' in message.content:
 		today = datetime.now() #取得現在時間
@@ -724,11 +800,13 @@ async def on_message(message):
 			output = subprocess.getstatusoutput(temp) #執行結果
 			txt += output[1] #[0,輸出指令] 將0排除
 			await message.channel.send(txt)
+		else:
+			await message.channel.send('請輸入該有的參數，使用「/pacman --help」查看更多幫助')
 
 @slash.slash(
 	name="pkg",
 	description="此命令可查找Arch Repo的套件資訊",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 async def pkg(ctx, pkg: str):
 #if message.content == '/套件' or message.content == '/pkg' or '/pkg' in message.content:
@@ -760,7 +838,7 @@ async def pkg(ctx, pkg: str):
 @slash.slash(
 	name="cmd",
 	description="此命令可查找Arch 指令所屬套件",
-	guild_ids=guild_ids
+	guild_ids=GroupID
 )
 async def cmd(ctx, pkg: str):
 	#text = str(message.content) #將文字放進來 轉成字串
