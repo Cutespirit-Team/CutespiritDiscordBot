@@ -21,6 +21,7 @@ import time    #可以處理時間
 TOKEN = 'Your Token Here'
 idDebug = False
 GroupID = [866199579014987816]
+channelids= [866977922929917972]
 	#About設定
 dcDescription = '我們是一群在網路上熱愛寫程式的學生'
 autherIcon = 'https://cutespirit.tershi.cf/Cutespirit/icon.png'
@@ -416,6 +417,9 @@ async def version(ctx):
 
 @client.command(name='status')
 async def status(ctx, STATUS: str):
+	if ctx.channel.id not in channelids:
+		await ctx.send('您無法執行/help命令，請到指令區')
+		return
 	# tmp = message.content.split(' ')
 	# text = ''
 	# for i in range(1,len(tmp)):
@@ -454,11 +458,13 @@ async def about(ctx):
 #if message.content == '幫助' or message.content == 'help' or '/help' in  message.content:	
 #or兩方有一個為True就成立(邏輯運算子) 最後一個in的語法是 只要"/help"有在傳來的訊息裡面就True
 async def help(ctx):
+	if ctx.channel.id not in channelids:
+		await ctx.send('您無法執行/help命令，請到指令區')
+		return
 	# embed=discord.Embed(title="靈萌bot", url="https://github.com/Cutespirit-Team/CutespiritDiscordBot", description="早安", color=0x00ffd5)
 	# embed.set_author(name="Cutesprit", url="https://cutespirit.tershi.cf/", icon_url="https://cutespirit.tershi.cf/Cutespirit/icon.png")
 	# embed.set_thumbnail(url="https://cutespirit.tershi.cf/Cutespirit/icon.png")
 	
-	# embed.add_field(name="一般：", value=" ", inline=True)
 	# embed.add_field(name="/help", value="顯示幫助", inline=True)
 	# embed.add_field(name="/sendmsg ", value="次數 訊息 [選項] | 傳送訊息 --help可以查看幫助", inline=True)
 	# embed.add_field(name="/calc", value="數字x 數字y [選項] | 計算機 --help可以查看幫助", inline=True)
@@ -470,18 +476,16 @@ async def help(ctx):
 	# embed.add_field(name="/version", value="顯示版本", inline=True)
 	# embed.add_field(name="/about", value="關於我們", inline=True)
 	
-	# embed.add_field(name="ArchLinux功能：", value=" ", inline=True)
 	# embed.add_field(name="/pacman", value="<操作> 套件 | Arch-pacman工具 --help可以查看幫助", inline=True)
 	# embed.add_field(name="/pkg", value="Arch套件查詢資訊工具 --help可以查看幫助", inline=True)
 	# embed.add_field(name="/cmd", value="Arch指令尋找所屬套件 --help可以查看幫助", inline=True)
 	
-	# embed.add_field(name="Dicord功能：", value=" ", inline=True)
 	# embed.add_field(name="/status", value="更改Discord 機器人狀態", inline=True)
 	# embed.add_field(name="/kick", value="踢掉使用者", inline=True)
 	# embed.add_field(name="/ban", value="封鎖使用者", inline=True)
 	# embed.add_field(name="/unban", value="解封使用者", inline=True)
 
-	# embed.add_field(name="YouTube音樂功能：", value=" ", inline=True)
+	# embed.add_field(name="YouTube音樂功能：", value="執行YouTube音樂功能", inline=True)
 	# embed.add_field(name="/join", value="加入到語音頻道", inline=True)
 	# embed.add_field(name="/play", value="播放YouTube音樂", inline=True)
 	# embed.add_field(name="/pause", value="暫停播放YouTube音樂", inline=True)
@@ -523,7 +527,10 @@ async def help(ctx):
 
 @client.event
 async def on_message(message):
-	# don't respond to ourselves
+	if message.channel.id not in channelids:
+		print('Not in Group')
+		print('message.channel.id =' +str(message.channel.id))
+		return
 	if message.author == client.user:
 		return
 	if message.content == '顯示網站' or '/showweb' in message.content:
