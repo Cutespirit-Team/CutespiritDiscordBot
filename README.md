@@ -11,7 +11,6 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 | /time | [選項] | 顯示時間 --help可以查看幫助 |
 | /count | 無 | 倒數計時 |
 | /weareroc | 無 | 我們是中國(中華民國) |
-| /showweb | 無 |顯示官網 |
 | /updateinfo | 無 | 查看更新內容 |
 | /version | 無 | 顯示版本 |
 
