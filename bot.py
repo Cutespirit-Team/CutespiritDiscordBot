@@ -75,6 +75,30 @@ def getExamCountText():
 	text += "111統測生: @拉拉拉拉 \n"
 	return text
 
+# Translates the message and returns the output object.
+def translate_message(message, target):
+	translate_client = translate.Client.from_service_account_json('api-key.json')
+	result = translate_client.translate(message, target_language=target)
+	return result
+
+# Takes in a string that may or may not be a language code.
+# If it is a language code, it returns said code.
+# If it is a language, it returns the affiliated code. If not, it returns -1
+def check_language(code, target):
+	with open('languages.json') as data:
+		languages = json.load(data)
+		for lang in languages:
+			if (lang['language'].lower() == code.lower())or (lang['name'].lower() == code.lower()):
+				return lang[target]
+		return "False"
+
+def format_response(response):
+	language_code = response['detectedSourceLanguage']
+	language_name = check_language(language_code, 'name')
+	formatted_return = ("```" + "\n" + " \"" + response['translatedText'] + "\"\n" + "```" + "\n" +
+						"**Source Language:** " + language_name + " **|** " + language_code + "\n")
+	return formatted_return
+
 #class MyClient(discord.Client):
 @client.event
 async def on_ready():
@@ -96,10 +120,9 @@ async def on_slash_command_error(ctx, error):
 		print("I don't have permissions to do it!")
 	if isinstance(error, discord.errors.ClientException):
 		await ctx.send('錯誤：已經連接到語音頻道了')
-	else:
-		print("error not caught")
-		print(error) 
-
+	# else:
+	# 	print("error not caught")
+	# 	print(error) 
 
 @client.event
 async def on_member_join(self, member):
@@ -149,8 +172,8 @@ async def kick(ctx, member : discord.Member, *,reason=None, cmd=None):
 			''')
 	else:
 		await member.kick(reason=reason)
-		await message.channel.send('已成功踢掉{discord.Member}！')
-		print('{discord.Member} has been kicked successfully!')
+		await ctx.send('已成功踢掉'+member.name+'!')
+		print(member.name + ' has been kicked successfully!')
 
 @slash.slash(
 	name="ban",
@@ -170,8 +193,8 @@ async def ban(ctx, member:discord.Member , *, reason=None, cmd=None):
 			''')
 	else:
 		await member.ban(reason=reason)
-		await message.channel.send('已成功ban {discord.Member}！')
-		print('{discord.Member} has been banned successfully!')
+		await message.channel.send('已成功ban ' + member.name + '！')
+		print( member.name + ' has been banned successfully!')
 
 @slash.slash(
 	name="unban",
@@ -198,8 +221,8 @@ async def unban(ctx , * , member, cmd=None):
 				await ctx.guild.unban(user)
 				await ctx.send(f'Unbanned {user.mention}')
 				return
-				await message.channel.send('已成功解封{discord.Member}！')
-				print('{discord.Member} has been unbanned successfully!')
+				await message.channel.send('已成功解封 ' + member.name + '！')
+				print( memeber.name + ' has been unbanned successfully!')
 
 @slash.slash(
 	name="join",
@@ -244,6 +267,8 @@ async def leave(ctx: SlashContext, cmd=None):
 			print('Bot: Not in Voice Channel')
 			print("Send Text: I'm not in a voice channel, use the join command to make me join")
 
+
+
 @slash.slash(
 	name="play",
 	description="用於播放YouTube影片or音樂音量",
@@ -279,6 +304,10 @@ async def play(ctx, url, cmd=None):
 			await ctx.send('現在正在播放:' +url)
 			print('Bot: Playing the Audio' +url)
 			print("Send Text: 現在正在播放:" +url)
+		elif voice.is_playing():
+			await ctx.send('There is an Audio playing now')
+			print('Bot: There is an Audio playing now')
+			print("Send Text: There is an Audio playing now")
 		else:
 			await ctx.send('There is no Audio playing now')
 			print('Bot: There is no Audio playing now')
@@ -404,6 +433,7 @@ async def updateinfo(ctx):
 		2021/07/20 - v0.6 - 修復Bug。
 		2021/07/20 - v0.7 - 並加入YouTube之/join /play /pause /resume /stop /leave功能。
 		2021/07/21 - v0.8 - 完善沒有加參數無法顯示的錯誤。
+		2021/07/22 - v0.9 - 修復/play二次加入連結顯示沒有播放的錯誤。
 		''')
 
 @slash.slash(
@@ -527,24 +557,26 @@ async def help(ctx):
 
 @client.event
 async def on_message(message):
-	if message.channel.id not in channelids:
-		print('Not in Group')
-		print('message.channel.id =' +str(message.channel.id))
-		return
+	if message.content.startswith('/'):
+		if message.channel.id not in channelids:
+			await message.channel.send('請勿輸入/指令。')
+			print('Bot: Not in the Righe Group')
+			print('message.channel.id =' +str(message.channel.id))
+			return
 	if message.author == client.user:
 		return
 	if message.content == '顯示網站' or '/showweb' in message.content:
 		text = '''
-1. 靈萌官網 - https://cutespirit.tershi.cf
-2. 夏特稀雲端硬碟 - https://mail.tershi.cf/tershicloud
-3. 夏特稀郵件 - https://mail.tershi.cf
-4. 愛神閃靈團隊官網 - https://www.tershi.cf
-5. 夏特稀YT - https://www.youtube.com/夏特稀
-6. Bot Source Code: https://github.com/mmm25002500/TershiBot-Telegram
-夏特稀TG - t.me/TershiXia
-本Bot - t.me/@TershiCloudBot
-隱私權政策 - https://mail.tershi.cf/policy
-本Bot 是夏特稀製作
+	1. 靈萌官網 - https://cutespirit.tershi.cf
+	2. 夏特稀雲端硬碟 - https://mail.tershi.cf/tershicloud
+	3. 夏特稀郵件 - https://mail.tershi.cf
+	4. 愛神閃靈團隊官網 - https://www.tershi.cf
+	5. 夏特稀YT - https://www.youtube.com/夏特稀
+	6. Bot Source Code: https://github.com/mmm25002500/TershiBot-Telegram
+	夏特稀TG - t.me/TershiXia
+	本Bot - t.me/@TershiCloudBot
+	隱私權政策 - https://mail.tershi.cf/policy
+	本Bot 是夏特稀製作
 			'''
 		await message.channel.send(text)
 	if message.content == '/倒數' or message.content == '/count' or '/count' in message.content:
