@@ -17,7 +17,7 @@ A Discord bot which made by Tershi. 一個由夏特稀製作的Discord機器人
 
 ### ArchLinux功能：
 | 用法/指令 | [選項...] [參數...] | 描述 |
-|-----|-----|-----/
+|-----|-----|-----
 | /pacman | <操作> 套件 | Arch-pacman工具 --help可以查看幫助 |
 | /pkg | 套件 | Arch套件查詢資訊工具 --help可以查看幫助 |
 | /cmd | 指令 | Arch指令尋找所屬套件 --help可以查看幫助 |
