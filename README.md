@@ -1,6 +1,49 @@
-# CutespiritDiscordBot - Discord
-### TODO
+# Cutespirit Discord Bot
+## Install and Run
+```sh
+git clone -b rewrite https://github.com/Cutespirit-Team/CutespiritDiscordBot
 
+# install requirements
+cd ./CutespiritDiscordBot/
+pip install -r requirments.txt
+
+# execute
+cd ./src
+python -m ctbot
+```
+
+## Config Sample
+```ini
+[bot]
+# First run you need to change token to your bot token.
+# you can create a bot from 
+# https://discord.com/developers/applications
+token = MTa4MjS3ASI ....
+owner = 196207520585351180
+
+[command]
+enable_slash = true
+general_prefix = !
+
+[slash]
+# regist all slash command for specific guilds.
+# accept list of guilds seprate by comma.
+all = 875896592052420618,196207701661843456
+
+# regist specific slash command for specific guilds.
+# <class name without 'Slash' prefix>.<method> = <guild_ids> 
+example.ping = 866199579014987816,96230004047740928
+
+# specific setting for guild
+[guild_866199579014987816]
+# only response message in specific channels (not work in slash commands)
+responsible_channels = 866213047016882206,866977922929917972
+```
+
+## WIP
+* None
+
+---
 ## 關於我們
 [Team Website](www.tershi.ml) <br>
 [Team Facebook](https://www.facebook.com/cutespirit05428/) <br>
