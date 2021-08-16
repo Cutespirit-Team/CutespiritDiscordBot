@@ -45,7 +45,7 @@ responsible_channels = 866213047016882206,866977922929917972
 
 ---
 ## 關於我們
-[Team Website](www.tershi.ml) <br>
+[Team Website](https://www.cutespirit.org) <br>
 [Team Facebook](https://www.facebook.com/cutespirit05428/) <br>
 [XiaTerShi YouTube](https://www.youtube.com/channel/UCPdpFDFOp3sPbZhRkaQVaQA) <br>
 [XiaTerShi FaceBook](https://www.facebook.com/Tershi25648) <br>
