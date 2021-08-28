@@ -2,7 +2,8 @@ import discord
 import argparse
 from discord.ext import commands
 from datetime import datetime
-from discord_slash.utils.manage_commands import create_option, SlashCommandOptionType
+from discord_slash.utils.manage_commands import create_option
+from discord_slash.model import SlashCommandOptionType
 from ..utils import cog_slash_managed, gen_list_of_option_choices
 
 # NOTE: something need to change cause it's wrong

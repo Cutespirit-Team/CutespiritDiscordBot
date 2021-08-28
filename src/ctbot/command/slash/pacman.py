@@ -2,7 +2,8 @@ import discord
 import typing
 from discord.ext import commands
 from ..utils import cog_slash_managed
-from discord_slash.utils.manage_commands import SlashCommandOptionType, create_option
+from discord_slash.utils.manage_commands import create_option
+from discord_slash.model import SlashCommandOptionType
 from asyncio import subprocess, wait_for, ensure_future
 from shlex import quote
 

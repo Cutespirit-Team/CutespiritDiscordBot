@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 from ..utils import cog_slash_managed
 from asyncio import sleep
-from discord_slash.utils.manage_commands import create_option, SlashCommandOptionType
+from discord_slash.utils.manage_commands import create_option
+from discord_slash.model import SlashCommandOptionType
 from discord.utils import get
 
 class SlashSend(commands.Cog):
