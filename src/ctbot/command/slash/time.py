@@ -36,9 +36,9 @@ def get_exam_days_left():
     text += f'{when_tcte_111} 學測倒數：\t{get_days_left(when_tcte_111, datetime_format)} \n'
     text += f'{when_ceec_111} 統測倒數：\t{get_days_left(when_ceec_111, datetime_format)} \n'
     text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
-    text += '111會考生: @拉拉拉拉 \n'
+    text += '111會考生: Cute USB#5387 \n'
     text += '111學測升: @拉拉拉拉 \n'
-    text += '111統測生: @拉拉拉拉 \n'
+    text += '111統測生: Cute USB#5387 \n'
     return text
 
 class SlashTime(commands.Cog):
