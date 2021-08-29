@@ -20,6 +20,7 @@ class SlashHelp(commands.Cog):
                     /time special_days_left | 特別日倒數計時
                     /calc [選項] [值] | 計算機
                     /tw | Taiwan
+                    /weather [地區] | 顯示該地區天氣資訊
                     /version | 版本
                     /about | 關於
                 ArchLinux功能：
