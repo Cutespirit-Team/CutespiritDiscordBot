@@ -17,3 +17,4 @@
 | 2021/08/29 | v2.2 | Update Help Command |
 | 2021/08/29 | v2.3 | Featrue: add weather infomations|
 | 2021/08/29 | v2.4 | Feature: add Wx, PoP, MinT|
+| 2021/08/29 | v2.5 | Fix Bug: input 台北 auto convert to 臺北市|
