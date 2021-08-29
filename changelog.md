@@ -15,3 +15,4 @@
 | 2021/08/14 | v2.0 | Completely rewrite |
 | 2021/08/28 | v2.1 | Update Slash Library to 2.3.2|
 | 2021/08/29 | v2.2 | Update Help Command |
+| 2021/08/29 | v2.3 | Featrue: add weather infomations|
