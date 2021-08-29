@@ -40,48 +40,48 @@ class SlashWeather(commands.Cog):
 
         data = requests.get('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-7610B04F-B7B7-4A9B-9884-52339E4314E1&locationName=' + city)
         txt = json.loads(data.text)
-        
+        weatherElement = txt['records']['location'][0]['weatherElement']       
         weather = txt['records']['location'][0]['locationName'] + '的天氣:\n'+ \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][0]['time'][0]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][0]['time'][0]['endTime']) + ' 是 ' + \
-                    txt['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName'] + '\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][0]['time'][1]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][0]['time'][1]['endTime']) + ' 是 ' +  \
-                    txt['records']['location'][0]['weatherElement'][0]['time'][1]['parameter']['parameterName'] + '\n' + \
-                    txt['records']['location'][0]['weatherElement'][0]['time'][2]['parameter']['parameterName'] + '\n' + \
+                    '\t' + dateChange(weatherElement[0]['time'][0]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[0]['time'][0]['endTime']) + ' 是 ' + \
+                    weatherElement[0]['time'][0]['parameter']['parameterName'] + '\n' + \
+                    '\t' + dateChange(weatherElement[0]['time'][1]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[0]['time'][1]['endTime']) + ' 是 ' +  \
+                    weatherElement[0]['time'][1]['parameter']['parameterName'] + '\n' + \
+                    '\t' + dateChange(weatherElement[0]['time'][2]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[0]['time'][2]['endTime']) + ' 是 ' +  \
+                    weatherElement[0]['time'][2]['parameter']['parameterName'] + '\n' + \
                     '\n濕度是:\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][1]['time'][0]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][1]['time'][0]['endTime']) + ' 是 ' + \
-                    txt['records']['location'][0]['weatherElement'][1]['time'][0]['parameter']['parameterName'] + '%\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][1]['time'][1]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][1]['time'][1]['endTime']) + ' 是 ' +  \
-                    txt['records']['location'][0]['weatherElement'][1]['time'][1]['parameter']['parameterName'] + '%\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][1]['time'][2]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][1]['time'][2]['endTime']) + ' 是 ' +  \
-                    txt['records']['location'][0]['weatherElement'][1]['time'][2]['parameter']['parameterName'] + '%\n' + \
+                    '\t' + dateChange(weatherElement[1]['time'][0]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[1]['time'][0]['endTime']) + ' 是 ' + \
+                    weatherElement[1]['time'][0]['parameter']['parameterName'] + '%\n' + \
+                    '\t' + dateChange(weatherElement[1]['time'][1]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[1]['time'][1]['endTime']) + ' 是 ' +  \
+                    weatherElement[1]['time'][1]['parameter']['parameterName'] + '%\n' + \
+                    '\t' + dateChange(weatherElement[1]['time'][2]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[1]['time'][2]['endTime']) + ' 是 ' +  \
+                    weatherElement[1]['time'][2]['parameter']['parameterName'] + '%\n' + \
                     '\n溫度是:\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][2]['time'][0]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][2]['time'][0]['endTime']) + ' 是 ' + \
-                    txt['records']['location'][0]['weatherElement'][2]['time'][0]['parameter']['parameterName'] + '°C\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][2]['time'][1]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][2]['time'][1]['endTime']) + ' 是 ' +  \
-                    txt['records']['location'][0]['weatherElement'][2]['time'][1]['parameter']['parameterName'] + '°C\n' + \
-                    '\t' + dateChange(txt['records']['location'][0]['weatherElement'][2]['time'][2]['startTime']) + ' ~ ' + \
-                    dateChange(txt['records']['location'][0]['weatherElement'][2]['time'][2]['endTime']) + ' 是 ' +  \
-                    txt['records']['location'][0]['weatherElement'][2]['time'][2]['parameter']['parameterName'] + '°C\n'
+                    '\t' + dateChange(weatherElement[2]['time'][0]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[2]['time'][0]['endTime']) + ' 是 ' + \
+                    weatherElement[2]['time'][0]['parameter']['parameterName'] + '°C\n' + \
+                    '\t' + dateChange(weatherElement[2]['time'][1]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[2]['time'][1]['endTime']) + ' 是 ' +  \
+                    weatherElement[2]['time'][1]['parameter']['parameterName'] + '°C\n' + \
+                    '\t' + dateChange(weatherElement[2]['time'][2]['startTime']) + ' ~ ' + \
+                    dateChange(weatherElement[2]['time'][2]['endTime']) + ' 是 ' +  \
+                    weatherElement[2]['time'][2]['parameter']['parameterName'] + '°C\n'
 
-
-
-        startTime = split(txt['records']['location'][0]['weatherElement'][0]['time'][0]['startTime'])
-        endTime = split(txt['records']['location'][0]['weatherElement'][0]['time'][0]['endTime'])
+        startTime = split(weatherElement[0]['time'][0]['startTime'])
+        endTime = split(weatherElement[0]['time'][0]['endTime'])
 
         url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-7610B04F-B7B7-4A9B-9884-52339E4314E1&locationName=' + city + '&timeFrom=' + startTime + '&timeTo=' + endTime
 
         data = requests.get(url)
         txt = json.loads(data.text)
         weather += '\n現在' + txt['records']['location'][0]['locationName'] + \
-                '的天氣是' + txt['records']['location'][0]['weatherElement'][0]['time'][0]['parameter']['parameterName'] + \
-                ' ,濕度是:' + txt['records']['location'][0]['weatherElement'][1]['time'][0]['parameter']['parameterName'] + '%' + \
-                ' ,濕度是:' + txt['records']['location'][0]['weatherElement'][2]['time'][0]['parameter']['parameterName'] + '%'
+                '的天氣是' + weatherElement[0]['time'][0]['parameter']['parameterName'] + \
+                ' ,濕度是:' + weatherElement[1]['time'][0]['parameter']['parameterName'] + '%' + \
+                ' ,濕度是:' + weatherElement[2]['time'][0]['parameter']['parameterName'] + '%'
         await ctx.send(weather)
 

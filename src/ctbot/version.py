@@ -10,7 +10,7 @@ author = {
 bot = {
 	'icon': 'https://cutespirit.tershi.cf/Cutespirit/icon.png',
 	'language': '正體中文',
-	'version': '2.5' ,
+	'version': '2.5.1' ,
 	'develope_date': '2021/07/19',
 	'last_udpate': '2021/08/29'
 }
