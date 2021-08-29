@@ -16,3 +16,4 @@
 | 2021/08/28 | v2.1 | Update Slash Library to 2.3.2|
 | 2021/08/29 | v2.2 | Update Help Command |
 | 2021/08/29 | v2.3 | Featrue: add weather infomations|
+| 2021/08/29 | v2.4 | Feature: add Wx, PoP, MinT|
