@@ -1,7 +1,7 @@
 # Cutespirit Discord Bot
 ## Install and Run
 ```sh
-git clone -b rewrite https://github.com/Cutespirit-Team/CutespiritDiscordBot
+git clone https://github.com/Cutespirit-Team/CutespiritDiscordBot
 
 # install requirements
 cd ./CutespiritDiscordBot/
@@ -39,11 +39,6 @@ example.ping = 866199579014987816,96230004047740928
 # only response message in specific channels (not work in slash commands)
 responsible_channels = 866213047016882206,866977922929917972
 ```
-
-## WIP
-* None
-
----
 ## 關於我們
 [Team Website](https://www.cutespirit.org) <br>
 [Team Facebook](https://www.facebook.com/cutespirit05428/) <br>
