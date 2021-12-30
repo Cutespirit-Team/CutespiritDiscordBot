@@ -18,6 +18,7 @@ class SlashHelp(commands.Cog):
                     /clear [訊息數] | 清除訊息
                     /time current [選項] | 顯示時間
                     /time special_days_left | 特別日倒數計時
+                    /time remain_time_left | 今年已經過了多久百分比
                     /calc [選項] [值] | 計算機
                     /tw | Taiwan
                     /weather [地區] | 顯示該地區天氣資訊
@@ -42,4 +43,3 @@ class SlashHelp(commands.Cog):
                     /ping | Ping-Pong
                 '''
         await ctx.send(usage)
-
