@@ -33,8 +33,8 @@ def get_exam_days_left():
     text += '=====111年=====\n'
     text += f'{when_tershi_18} 夏特稀皇帝18歲誕辰倒數 {get_days_left(when_tershi_18, date_format)} \n'
     text += f'{when_cap_111 } 會考倒數：\t{get_days_left(when_cap_111, datetime_format)} \n'
-    text += f'{when_ceec_111} 學測倒數：\t{get_days_left(when_tcte_111, datetime_format)} \n'
-    text += f'{when_tcte_111} 統測倒數：\t{get_days_left(when_ceec_111, datetime_format)} \n'
+    text += f'{when_ceec_111} 學測倒數：\t{get_days_left(when_ceec_111, datetime_format)} \n'
+    text += f'{when_tcte_111} 統測倒數：\t{get_days_left(when_tcte_111, datetime_format)} \n'
     text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
     text += '111會考生: Cute USB#5387 , 嘎逼#1596 , 祥翔#4073\n'
     text += '111學測生: @拉拉拉拉 \n'
@@ -70,11 +70,17 @@ class SlashTime(commands.Cog):
     async def special_days_left(self, ctx):
         await ctx.send(get_exam_days_left())
     
-    @cog_slash_managed(base='time', description='今年已經過了多少百分比')
-    async def remain_time_left(self, ctx):
+    @cog_slash_managed(base='time', description='今年已經過了多少百分比',
+                options=[create_option('format', '格式',
+                option_type=SlashCommandOptionType.STRING,
+                required=False,
+                choices=gen_list_of_option_choices(['西元','民國']))])
+    async def remain_time_left(self, ctx, format=None):
         today = datetime.now()
         year, month, day, hour, minute, second, week = today.timetuple()[:7]
         remain_time = get_remain_time(year, month, day, hour, minute, second)
+        if '民國' in str(format):
+            year = year - 1911
         text = str(year) + '年已經過了' + str(remain_time)
         await ctx.send(text)
 
