@@ -23,3 +23,5 @@
 | 2021/12/30 | v2.6 | Add Feature: Time Remain of this year |
 | 2021/12/31 | v2.6.1 | Add Feature: Time Remain in roc or vids |
 | 2022/01/02 | v2.6.2 | Add Feature: Show Hardware information |
+| 2022/01/02 | v2.6.3 | Fix Bug: add hardware Description and help |
+| 2022/01/02 | v2.6.4 | Add Feature: Run Speedtest |
