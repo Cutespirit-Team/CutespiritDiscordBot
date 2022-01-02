@@ -22,6 +22,8 @@ class SlashHelp(commands.Cog):
                     /calc [選項] [值] | 計算機
                     /tw | Taiwan
                     /weather [地區] | 顯示該地區天氣資訊
+                    /hardware | 查看本Bot運行硬體資訊
+                    /speedtest | 測試上傳與下載速度
                     /version | 版本
                     /about | 關於
                 ArchLinux功能：
