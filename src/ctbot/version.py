@@ -1,16 +1,16 @@
 author = {
-	'icon': 'https://cutespirit.tershi.cf/Cutespirit/icon.png',
+	'icon': 'https://tershi.cutespirit.org/Cutespirit/icon.png',
 	'age': '17',
-	'grade': '升高三',
+	'grade': '高三',
 	'use_os': 'Arch-Linux',
 	'description': '我們是一群在網路上熱愛寫程式的學生',
-	'experience': '寫程式多年，跟小弟弟一起研究'
+	'experience': '想給每一個discord熱愛者而做的bot'
 }
 
 bot = {
 	'icon': 'https://tershi.cutespirit.org/Cutespirit/icon.png',
 	'language': '正體中文',
-	'version': '2.6.1' ,
+	'version': '2.6.2' ,
 	'develope_date': '2021/07/19',
-	'last_udpate': '2021/12/31'
+	'last_udpate': '2022/01/02'
 }
