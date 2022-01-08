@@ -19,6 +19,7 @@ class SlashHelp(commands.Cog):
                     /time current [選項] | 顯示時間
                     /time special_days_left | 特別日倒數計時
                     /time remain_time_left | 今年已經過了多久百分比
+                    /time exam_day_left [選項] | 考試倒數計時
                     /calc [選項] [值] | 計算機
                     /tw | Taiwan
                     /weather [地區] | 顯示該地區天氣資訊
