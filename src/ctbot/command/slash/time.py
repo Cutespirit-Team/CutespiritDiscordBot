@@ -7,15 +7,19 @@ from discord_slash.model import SlashCommandOptionType
 from ..utils import cog_slash_managed, gen_list_of_option_choices
 
 # NOTE: something need to change cause it's wrong
-when_cap_111  = '2022/05/14 08:30' # 111 會考日期
-when_tcte_111 = '2022/05/07 10:15' # 111 統測日期
-when_ceec_111 = '2022/01/15 09:20' # 111 學測日期
+when_cap  = '2022/05/14 08:30' # 111 會考日期
+when_tcte = '2022/05/07 10:15' # 111 統測日期
+when_ceec = '2022/01/15 09:20' # 111 學測日期
 # ceecCountDown111 = datetime(2022,1,15,9,20) # 111學測日期
 when_tershi_18 = '2022/05/26' # 夏特稀 111 生日
-yahoo_knowledge_discontinued = '2021/05/04' # 奇摩知識家停止服務
 
 date_format = '%Y/%m/%d'
 datetime_format = '%Y/%m/%d %H:%M'
+
+dict_exam = {
+    '統測' : 'tcte', '學測' : 'ceec',
+    '會考' : 'cap'
+        }
 
 def get_days_left(deadline, format=None):
     if type(deadline) == str:
@@ -28,17 +32,25 @@ def get_days_left(deadline, format=None):
              + str(((deadline-datetime.now()).seconds//60)%60) + '分鐘' #加入年
     return str((deadline-datetime.now()).days) + '天' + str((deadline-datetime.now()).seconds//3600) + '小時' + str(((deadline-datetime.now()).seconds//60)%60) + '分鐘'
 
-def get_exam_days_left():
+def get_special_days_left():
     text  = '中華帝國年行事曆\n\n'
     text += '=====111年=====\n'
     text += f'{when_tershi_18} 夏特稀皇帝18歲誕辰倒數 {get_days_left(when_tershi_18, date_format)} \n'
-    text += f'{when_cap_111 } 會考倒數：\t{get_days_left(when_cap_111, datetime_format)} \n'
-    text += f'{when_ceec_111} 學測倒數：\t{get_days_left(when_ceec_111, datetime_format)} \n'
-    text += f'{when_tcte_111} 統測倒數：\t{get_days_left(when_tcte_111, datetime_format)} \n'
     text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
     text += '111會考生: Cute USB#5387 , 嘎逼#1596 , 祥翔#4073\n'
     text += '111學測生: @拉拉拉拉 \n'
     text += '111統測生: 夏特稀#3716 \n'
+    return text
+
+def get_exam_left(name):
+    name = dict_exam.get(name)
+    text = ''
+    if 'tcte' in name:
+        text += f'{when_tcte} 統測倒數：\t{get_days_left(when_tcte, datetime_format)} \n'
+    elif 'ceec' in name:
+        text += f'{when_ceec} 學測倒數：\t{get_days_left(when_ceec, datetime_format)} \n'
+    elif 'cap' in name:
+        text += f'{when_cap} 會考倒數：\t{get_days_left(when_cap, datetime_format)} \n'
     return text
 
 def get_remain_time(year, month, day, hour, minute, second):
@@ -68,7 +80,16 @@ class SlashTime(commands.Cog):
 
     @cog_slash_managed(base='time', description='特別日倒數計時')
     async def special_days_left(self, ctx):
-        await ctx.send(get_exam_days_left())
+        await ctx.send(get_special_days_left())
+
+    @cog_slash_managed(base='time', description='考試倒數計時',
+                options=[create_option('name', '名字',
+                option_type=SlashCommandOptionType.STRING,
+                required=True,
+                choices=gen_list_of_option_choices(dict_exam.keys()))])
+    async def exam_day_left(self, ctx, name:str):
+        text = get_exam_left(name[2:])
+        await ctx.send(text)
     
     @cog_slash_managed(base='time', description='今年已經過了多少百分比',
                 options=[create_option('format', '格式',
@@ -122,3 +143,4 @@ class SlashTime(commands.Cog):
         nowtime += f'{second}秒' if args.second else ''
         nowtime += f' 星期{week_text[week]}' if args.week else ''
         await ctx.send(nowtime)
+
