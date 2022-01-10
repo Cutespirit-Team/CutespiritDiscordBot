@@ -35,6 +35,7 @@ class SlashHelp(commands.Cog):
                     /kick [MEMBER] | 踢掉使用者
                     /ban [MEMBER] | 封鎖使用者
                     /unban [MEMBER] | 解封使用者
+                    /membercount | 查看伺服器人數
                 YouTube音樂功能：
                     /yt play [URL] | 播放音樂
                     /yt pause [選項] | 暫停/恢復 播放音樂
