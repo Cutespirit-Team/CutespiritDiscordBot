@@ -27,3 +27,4 @@
 | 2022/01/02 | v2.6.4 | Add Feature: Run Speedtest |
 | 2022/01/09 | v2.6.5 | Add Feature: Time Exam Left |
 | 2022/01/10 | v2.6.6 | Add Feature: Github Info |
+| 2022/01/10 | v2.6.7 | Add Feature: Server State |
