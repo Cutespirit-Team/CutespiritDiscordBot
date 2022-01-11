@@ -39,7 +39,11 @@ class SlashGithubInfo(commands.Cog):
         parameters = dict_info.get(parameters)
         data = requests.get('https://api.github.com/users/'+ user_id)
         txt = json.loads(data.text)
-        info = txt[parameters]
-        info = label_name + ':' +info
-        await ctx.send(info)
-
+        if 'message' in txt.keys():
+            if txt['message'] == 'Not Found':
+                text = '找不到使用者:' + user_id
+            await ctx.send(text)
+        else:
+            info = txt[parameters]
+            info = user_id + '的' + label_name + ':' +str(info)
+            await ctx.send(info)
