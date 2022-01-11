@@ -44,7 +44,7 @@ class SlashHelp(commands.Cog):
                     /yt prev | 下一首
                     /yt clear | 清除播放清單
                 Github功能:
-                    /github_infp | 查看Github資訊
+                    /github_info | 查看Github資訊
                 測試指令:
                     /ping | Ping-Pong
                 '''
