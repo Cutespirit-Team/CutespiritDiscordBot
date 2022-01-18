@@ -29,3 +29,4 @@
 | 2022/01/10 | v2.6.6 | Add Feature: Github Info |
 | 2022/01/10 | v2.6.7 | Add Feature: Server State |
 | 2022/01/11 | v2.6.8 | Update github_info Not Found |
+| 2022/01/18 | v2.6.9 | Add Feature: increase github_visitor |
