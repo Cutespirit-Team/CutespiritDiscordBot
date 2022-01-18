@@ -46,7 +46,6 @@ class SlashHelp(commands.Cog):
                 Github功能:
                     /github_info | 查看Github資訊
                     /github_visitor | 增加Github訪客人數
-
                 測試指令:
                     /ping | Ping-Pong
                 '''
