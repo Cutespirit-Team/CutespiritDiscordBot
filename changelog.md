@@ -30,3 +30,4 @@
 | 2022/01/10 | v2.6.7 | Add Feature: Server State |
 | 2022/01/11 | v2.6.8 | Update github_info Not Found |
 | 2022/01/18 | v2.6.9 | Add Feature: increase github_visitor |
+| 2022/01/21 | v2.7.0 | Add Feature: check if have permission or not |
