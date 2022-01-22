@@ -43,7 +43,11 @@ class SlashHelp(commands.Cog):
                     /yt next | 上一首
                     /yt prev | 下一首
                     /yt clear | 清除播放清單
-                Github功能:
+                權限功能：
+                    /has_cmd_permission manage_message | 查看是否有管理訊息的權限
+                    /has_cmd_permission ban_user | 查看是否有ban使用者的權限
+                    /has_cmd_permission create_instant_invite | 查看是否有建立邀請連結的權限
+                Github功能：
                     /github_info | 查看Github資訊
                     /github_visitor | 增加Github訪客人數
                 測試指令:
