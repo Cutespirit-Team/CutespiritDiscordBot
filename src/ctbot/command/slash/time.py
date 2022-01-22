@@ -7,17 +7,17 @@ from discord_slash.model import SlashCommandOptionType
 from ..utils import cog_slash_managed, gen_list_of_option_choices
 
 # NOTE: something need to change cause it's wrong
-when_cap  = '2022/05/14 08:30' # 111 會考日期
-when_tcte = '2022/05/07 10:15' # 111 統測日期
-when_ceec = '2022/01/15 09:20' # 111 學測日期
+when_cap  = '2022/05/21 08:30' # 111 會考日期
+when_tcte = '2022/04/30 10:15' # 111 統測日期
 # ceecCountDown111 = datetime(2022,1,15,9,20) # 111學測日期
 when_tershi_18 = '2022/05/26' # 夏特稀 111 生日
+when_adult = '2023/01/01' #民法成年
 
 date_format = '%Y/%m/%d'
 datetime_format = '%Y/%m/%d %H:%M'
 
 dict_exam = {
-    '統測' : 'tcte', '學測' : 'ceec',
+    '統測' : 'tcte',
     '會考' : 'cap'
         }
 
@@ -36,6 +36,7 @@ def get_special_days_left():
     text  = '中華帝國年行事曆\n\n'
     text += '=====111年=====\n'
     text += f'{when_tershi_18} 夏特稀皇帝18歲誕辰倒數 {get_days_left(when_tershi_18, date_format)} \n'
+    text += f'{when_adult} 民法成年倒數 {get_days_left(when_adult, date_format)} \n'
     text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
     text += '111會考生: Cute USB#5387 , 嘎逼#1596 , 祥翔#4073\n'
     text += '111學測生: @拉拉拉拉 \n'
@@ -47,8 +48,6 @@ def get_exam_left(name):
     text = ''
     if 'tcte' in name:
         text += f'{when_tcte} 統測倒數：\t{get_days_left(when_tcte, datetime_format)} \n'
-    elif 'ceec' in name:
-        text += f'{when_ceec} 學測倒數：\t{get_days_left(when_ceec, datetime_format)} \n'
     elif 'cap' in name:
         text += f'{when_cap} 會考倒數：\t{get_days_left(when_cap, datetime_format)} \n'
     return text
@@ -143,4 +142,3 @@ class SlashTime(commands.Cog):
         nowtime += f'{second}秒' if args.second else ''
         nowtime += f' 星期{week_text[week]}' if args.week else ''
         await ctx.send(nowtime)
-
