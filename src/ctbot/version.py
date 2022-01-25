@@ -10,7 +10,18 @@ author = {
 bot = {
 	'icon': 'https://tershi.cutespirit.org/Cutespirit/icon.png',
 	'language': '正體中文',
-	'version': '2.7.0' ,
+	'version': '2.7.1' ,
 	'develope_date': '2021/07/19',
-	'last_udpate': '2022/01/21'
+	'last_udpate': '2022/01/25'
+}
+
+store = {
+    'store_id': '',
+    'store_key': '',
+    'IV': '',
+
+}
+
+weather = {
+    'weather_token' : ''
 }
