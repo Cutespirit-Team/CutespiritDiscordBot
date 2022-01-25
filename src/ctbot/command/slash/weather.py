@@ -4,34 +4,37 @@ from ..utils import cog_slash_managed , gen_list_of_choices
 from discord_slash.utils.manage_commands import create_option
 from discord_slash.utils import manage_components
 from discord_slash.model import SlashCommandOptionType , ButtonStyle
+from ...version import weather
 import requests
 import json
 import time , datetime
 
+token = f'{weather["weather_token"]}'
+
 def split(text):
     temp = text.split()
     return temp[0] + 'T' + temp[1]
-def dateChange(date):
+def dateChange(date):   #將日期轉換格式
     struct_time = time.strptime(date , "%Y-%m-%d %H:%M:%S")
     new_Date = time.strftime('%Y年%m月%d日的%H點%M分' , struct_time)
     return new_Date
-def dateToday(date):
+def dateToday(date):    #將日期轉換格式
     struct_time = time.strptime(date , "%Y-%m-%d %H:%M:%S")
     new_Date = time.strftime('%H點%M分' , struct_time)
     return new_Date
-def isToday(date):
+def isToday(date):  #傳進來的時間對於今天來講是明天還是今天
     #處理今天
     today = datetime.datetime.today()
     today_text = str(today.year) + '-' + str(today.month) + '-' + str(today.day)
     stuct_today = time.strptime(today_text , "%Y-%m-%d")
     new_today_month = int(time.strftime('%m' , stuct_today))
     new_today_date = int(time.strftime('%d' , stuct_today))
-    new_today = new_today_month *31 + new_today_date
+    new_today = new_today_month *31 + new_today_date    #月份*31天+日
     #處理傳進來的日子
     struct_time = time.strptime(date , "%Y年%m月%d日的%H點%M分")
     new_time_month = int(time.strftime('%m' , struct_time))
     new_time_date = int(time.strftime('%d' , struct_time))
-    new_time = new_time_month*31 + new_time_date
+    new_time = new_time_month*31 + new_time_date        #月份*31天*日
     if new_today == new_time:
         return '今天'
     elif new_today < new_time:
@@ -54,7 +57,6 @@ dict_city = {
     '嘉義' : '嘉義市', '屏東' : '屏東縣'
         }
 
-
 class SlashWeather(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
@@ -68,7 +70,8 @@ class SlashWeather(commands.Cog):
     async def weather(self, ctx , city: str):
         if '市' not in city and '縣' not in city:
             city = dict_city.get(city)
-        data = requests.get('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-7610B04F-B7B7-4A9B-9884-52339E4314E1&locationName=' + city)
+        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' + token + '&locationName=' + city
+        data = requests.get(url)
         txt = json.loads(data.text)
         weatherElement = txt['records']['location'][0]['weatherElement']       
         weather = txt['records']['location'][0]['locationName'] + '的天氣:\n'+ \
@@ -102,13 +105,12 @@ class SlashWeather(commands.Cog):
         startTime = split(weatherElement[0]['time'][0]['startTime'])
         endTime = split(weatherElement[0]['time'][0]['endTime'])
 
-        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-7610B04F-B7B7-4A9B-9884-52339E4314E1&locationName=' + city + '&timeFrom=' + startTime + '&timeTo=' + endTime
+        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' + token + '&locationName=' + city + '&timeFrom=' + startTime + '&timeTo=' + endTime
 
         data = requests.get(url)
         txt = json.loads(data.text)
         weather += '\n現在' + txt['records']['location'][0]['locationName'] + \
                 '的天氣是' + weatherElement[0]['time'][0]['parameter']['parameterName'] + \
                 ' ,濕度是:' + weatherElement[1]['time'][0]['parameter']['parameterName'] + '%' + \
-                ' ,濕度是:' + weatherElement[2]['time'][0]['parameter']['parameterName'] + '%'
+                ' ,溫度是:' + weatherElement[2]['time'][0]['parameter']['parameterName'] + '%'
         await ctx.send(weather)
-
