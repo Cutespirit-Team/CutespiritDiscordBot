@@ -1,4 +1,5 @@
 discord-py-slash-command==2.3.2
+discord-ui
 youtube-dl
 discord.py[voice]==1.7.3
 speedtest-cli
