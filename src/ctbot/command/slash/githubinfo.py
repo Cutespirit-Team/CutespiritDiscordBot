@@ -7,6 +7,8 @@ from discord_slash.model import SlashCommandOptionType , ButtonStyle
 import requests
 import json
 
+# TODO: 將github_visitor的訪客次數顯示出來(BS4爬蟲)
+
 dict_info = {
     '登入' : 'login', 'id' : 'id',
     'html_url' : 'html_url', '粉絲連結' : 'followers_url',
