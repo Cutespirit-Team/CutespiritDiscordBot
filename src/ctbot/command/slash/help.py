@@ -26,7 +26,9 @@ class SlashHelp(commands.Cog):
                     /hardware | 查看本Bot運行硬體資訊
                     /speedtest | 測試上傳與下載速度
                     /version | 版本
-                    /about | 關於
+                    /about dcbot | 關於本機器人
+                    /about author | 關於作者
+                    /about team | 關於靈萌團隊
                 ArchLinux功能：
                     /pacman pkg_files [套件] | 查詢 Arch 指令所屬套件
                     /pacman pkg_info [套件] | 查詢 Arch 套件資訊
@@ -40,9 +42,12 @@ class SlashHelp(commands.Cog):
                     /yt play [URL] | 播放音樂
                     /yt pause [選項] | 暫停/恢復 播放音樂
                     /yt stop [選項] | 停止音樂
-                    /yt next | 上一首
-                    /yt prev | 下一首
+                    /yt next | 下一首
+                    /yt prev | 上一首
                     /yt clear | 清除播放清單
+                Cutespirit-SHOP功能:
+                    /product_order [產品名稱] [價格] [Email] | 商品下單
+                    /check_order [訂單編號] | 查看訂單
                 權限功能：
                     /has_cmd_permission manage_message | 查看是否有管理訊息的權限
                     /has_cmd_permission ban_user | 查看是否有ban使用者的權限
