@@ -19,6 +19,7 @@ def regist_slash_command(bot):
         slash = importlib.import_module(f'.{module}', 'ctbot.command.slash')
         klasses = inspect.getmembers(slash, lambda x: inspect.isclass(x))
         for name, kless in klasses:
+            #print(module , name.lower())
             if name.startswith('Slash') and module == name.lower()[5:]:
                 logger.info(f'Registing {name}')
                 bot.add_cog(kless(bot))
