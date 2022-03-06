@@ -47,4 +47,8 @@ responsible_channels = 866213047016882206,866977922929917972
 [Cutespirit-SHOP](https://shop.cutespirit.org)<br>
 [Cutespirit Discord Bot](https://dcbot.cutespirit.org)<br>
 
+# 趨勢
+[![Stargazers over time](https://starchart.cc/Cutespirit-Team/CutespiritDiscordBot.svg)](https://starchart.cc/Cutespirit-Team/CutespiritDiscordBot)
+
+
 Licence:© Cutespirit 2022 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
