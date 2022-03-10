@@ -9,6 +9,9 @@ import requests
 import json
 import time , datetime
 
+# TODO: Clean Code
+# TODO: Fix Error that somewhere can not be outputed to the Discord
+
 token = f'{weather["weather_token"]}'
 
 def split(text):

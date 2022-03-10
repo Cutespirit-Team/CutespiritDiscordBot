@@ -6,6 +6,9 @@ from discord_slash.utils.manage_commands import create_option
 from discord_slash.model import SlashCommandOptionType
 from ..utils import cog_slash_managed, gen_list_of_option_choices
 
+# TODO: add command that can be inputed time by user
+# TODO: auto generate time label
+
 # NOTE: something need to change cause it's wrong
 when_cap  = '2022/05/21 08:30' # 111 會考日期
 when_tcte = '2022/04/30 10:15' # 111 統測日期
