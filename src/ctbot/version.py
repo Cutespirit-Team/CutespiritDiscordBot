@@ -2,7 +2,7 @@ author = {
     'name' : '夏特稀',
     'gender' : '男',
 	'description': '一個17歲的台灣人，學習程式語言',
-    'icon': 'https://tershi.cutespirit.org/images/tershi.jpg',
+    'icon': 'https://tershi.cutespirit.org/images/tershi_02.jpg',
     'url' : 'https://tershi.cutespirit.org',
     'age': '17',
 	'grade': '高三',
@@ -17,9 +17,9 @@ bot = {
 	'description': '一個由靈萌團隊製作的 Discord 機器人',
 	'experience': '想給每一個discord熱愛者而做的bot',
 	'language': '正體中文',
-	'version': '2.8' ,
+	'version': '2.9' ,
 	'develope_date': '2021/07/19',
-	'last_udpate': '2022/01/26'
+	'last_udpate': '2022/05/05'
 }
 
 team = {
@@ -40,12 +40,12 @@ shop = {
     'description' : '一個低價有誠信的代購商',
     'url' : 'https://shop.cutespirit.org',
     'icon': 'https://tershi.cutespirit.org/Cutespirit/icon.png',  
-    'shop_id' : '123',
-    'shop_key' : '123',
-    'IV' : '123'
+    'shop_id' : 'ID_HERE',
+    'shop_key' : 'KEY_HERE',
+    'IV' : 'IV_HERE'
 }
 
 weather = {
-    'weather_token' : '123'
+    'weather_token' : 'TOKEN-HERE'
 }
 

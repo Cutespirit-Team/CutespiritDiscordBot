@@ -30,9 +30,37 @@ class CTBot(commands.Bot):
 			return
 
 		# NOTE: use decorate instead except we are going to use manual way to handle commands
-		responsible_channels = config.get_responsible_channels(message.guild.id)
-		if len(responsible_channels) != 0 and message.channel.id not in responsible_channels:
-			await message.add_reaction('😷')
+		# responsible_channels = config.get_responsible_channels(message.guild.id)
+		# if len(responsible_channels) != 0 and message.channel.id not in responsible_channels:
+		# 	await message.add_reaction('😷')
+		try:
+			words = open('words.json', mode='r', encoding='utf-8')
+			words = json.load(words)
+			for i in words.keys():
+				if i.startswith('.') and i[1:-1] == message.content:
+					channel = message.channel
+					user = message.author.id
+					ID = '<@' + str(user)+'>'
+					await channel.send(ID + '，' + words[i])
+					await message.delete()
+					break
+				if i.startswith('.') == False and i in message.content:
+					channel = message.channel
+					user = message.author.id
+					ID = '<@' + str(user)+'>'
+					await channel.send(ID + '，' + words[i])
+					await message.delete()
+					break
+
+		except FileNotFoundError:
+			filename = 'words.json'
+			content = {
+				'Example1' : 'a word',
+				'.Example2.' : 'a word in a sentense'
+				}
+			f = open(filename, 'w')
+			json.dump(content, f, indent=4)
+			f.close()
 
 	async def on_member_join(self, member):
 		guild = member.guild
