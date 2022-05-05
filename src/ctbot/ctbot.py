@@ -1,5 +1,6 @@
 import discord
 import logging
+import json
 from .config import BotConfig
 from discord.ext import commands
 from discord_slash.client import SlashCommand
@@ -34,8 +35,8 @@ class CTBot(commands.Bot):
 		# if len(responsible_channels) != 0 and message.channel.id not in responsible_channels:
 		# 	await message.add_reaction('😷')
 		try:
-			words = open('words.json', mode='r', encoding='utf-8')
-			words = json.load(words)
+			words = open('config/words.json', mode='r', encoding='utf-8')
+			words = json.loadw(ords)
 			for i in words.keys():
 				if i.startswith('.') and i[1:-1] == message.content:
 					channel = message.channel
@@ -53,7 +54,7 @@ class CTBot(commands.Bot):
 					break
 
 		except FileNotFoundError:
-			filename = 'words.json'
+			filename = 'config/words.json'
 			content = {
 				'Example1' : 'a word',
 				'.Example2.' : 'a word in a sentense'

@@ -34,3 +34,4 @@
 | v2.7.1 | 2022/01/25 | Fix bug: change weather token to version.py |
 | v2.8 | 2022/01/27 | Feature: Add Cutespirit-SHOP Place Order | Feature: Add Cutespirit-SHOP Check Order | Feature: Add About dcbot, author, team | Fix bug: Add version.py more configurations | Update version to about |
 | v2.9 | 2022/05/05 | Feature: Add words forbidden |
+| v3.0 | 2022/05/05 | Feature: Add Time Config| Feature: Add words forbidden Config | Feature: Add user customize time left | Feature: Remove time exam left | 
