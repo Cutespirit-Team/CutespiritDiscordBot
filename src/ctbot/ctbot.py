@@ -4,11 +4,14 @@ import json
 from .config import BotConfig
 from discord.ext import commands
 from discord_slash.client import SlashCommand
+from .version import author, bot ,team
 
 config = BotConfig('../bot.ini')
 class CTBot(commands.Bot):
 	def __init__(self):
-		super().__init__(command_prefix=config.get_general_prefix())
+		intents = discord.Intents.default()
+		intents.members = True
+		super().__init__(command_prefix=config.get_general_prefix(), intents=intents)
 		self.logger = logging.getLogger('ctbot')
 		SlashCommand(self, delete_from_unused_guilds=True, sync_commands=True)
 		if config.get_enable_slash():
@@ -36,7 +39,7 @@ class CTBot(commands.Bot):
 		# 	await message.add_reaction('😷')
 		try:
 			words = open('config/words.json', mode='r', encoding='utf-8')
-			words = json.loadw(ords)
+			words = json.load(words)
 			for i in words.keys():
 				if i.startswith('.') and i[1:-1] == message.content:
 					channel = message.channel
@@ -66,10 +69,64 @@ class CTBot(commands.Bot):
 	async def on_member_join(self, member):
 		guild = member.guild
 		if guild.system_channel is not None:
-			to_send = f'Welcome {member.mention} to {guild.name}!'
-			await guild.system_channel.send(to_send)
+			
 			# self.logger.info(f'{member.mention} 加入了伺服器')
+			try:
+				config = open('config/member_join.json', mode='r', encoding='utf-8')
+				config = json.load(config)
+				to_send = config['member_join_text']
+				if config['enable_embed'] == 'no':
+					await guild.system_channel.send(to_send.format(member_mention=member.mention, guild_name=guild.name))
+				elif config['enable_embed'] == 'yes':
+					embed=discord.Embed(title=bot['name'], url=bot['url'], description=config['embed_join_text'].format(member_mention=member.mention), color=0x00ffd5)
+					embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
+					if config['enable_embed_thumbnail'] == 'yes':
+						embed.set_thumbnail(url=bot['icon'])
+					await guild.system_channel.send(embed=embed)
+				else:
+					print('Error Json File Config')
+			except FileNotFoundError:
+				filename = 'config/member_join.json'
+				content = {
+					'member_join_text' : 'Welcome {member_mention} to {guild_name}!',
+					'enable_embed' : 'yes',
+					'embed_join_text' : 'Yo~ {member_mention} 歡迎您加入 Cutespirit Team 伺服器群組喔！ 啾咪~',
+					'enable_embed_thumbnail' : 'no'
+					}
+				f = open(filename, 'w')
+				json.dump(content, f, indent=4)
+				f.close()
 
+	async def on_member_remove(self, member):
+		guild = member.guild
+		if guild.system_channel is not None:
+			
+			# self.logger.info(f'{member.mention} 離開了伺服器')
+			try:
+				config = open('config/member_leave.json', mode='r', encoding='utf-8')
+				config = json.load(config)
+				to_send = config['member_leave_text']
+				if config['enable_embed'] == 'no':
+					await guild.system_channel.send(to_send.format(member_name=member.name))
+				elif config['enable_embed'] == 'yes':
+					embed=discord.Embed(title=bot['name'], url=bot['url'], description=config['embed_leave_text'].format(member_name=member.name), color=0x00ffd5)
+					embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
+					if config['enable_embed_thumbnail'] == 'yes':
+						embed.set_thumbnail(url=bot['icon'])
+					await guild.system_channel.send(embed=embed)
+				else:
+					print('Error Json File Config')
+			except FileNotFoundError:
+				filename = 'config/member_leave.json'
+				content = {
+					'member_leave_text' : '{member_name} 離開了我們QQ!',
+					'enable_embed' : 'yes',
+					'embed_leave_text' : '{member_name} 無情又殘忍地離開了 Cutespirit Team 伺服器群組喔！QQ',
+					'enable_embed_thumbnail' : 'no'
+					}
+				f = open(filename, 'w')
+				json.dump(content, f, indent=4)
+				f.close()
 	# async def on_error(self, ev, *args, **kwargs):
 	# 	pass
 

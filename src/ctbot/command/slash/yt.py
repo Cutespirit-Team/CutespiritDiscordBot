@@ -58,3 +58,4 @@ class SlashYT(commands.Cog):
     async def clear(self, ctx):
         self.player.playlist.clear_entries()
         await ctx.send('已清除播放清單', hidden=False)
+        

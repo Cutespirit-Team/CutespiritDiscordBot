@@ -19,16 +19,16 @@ class SlashHelp(commands.Cog):
                     /time current [選項] | 顯示時間
                     /time special_days_left | 特別日倒數計時
                     /time remain_time_left | 今年已經過了多久百分比
-                    /time exam_day_left [選項] | 考試倒數計時
+                    /time exam_day_left [選項] | 考試倒數計時(棄用)
                     /calc [選項] [值] | 計算機
                     /tw | Taiwan
                     /weather [地區] | 顯示該地區天氣資訊
                     /hardware | 查看本Bot運行硬體資訊
                     /speedtest | 測試上傳與下載速度
-                    /version | 版本
                     /about dcbot | 關於本機器人
                     /about author | 關於作者
                     /about team | 關於靈萌團隊
+                    /about version | 顯示版本
                 ArchLinux功能：
                     /pacman pkg_files [套件] | 查詢 Arch 指令所屬套件
                     /pacman pkg_info [套件] | 查詢 Arch 套件資訊
@@ -38,6 +38,7 @@ class SlashHelp(commands.Cog):
                     /ban [MEMBER] | 封鎖使用者
                     /unban [MEMBER] | 解封使用者
                     /membercount | 查看伺服器人數
+                    /invite | 建立邀請連結
                 YouTube音樂功能：
                     /yt play [URL] | 播放音樂
                     /yt pause [選項] | 暫停/恢復 播放音樂
