@@ -37,4 +37,3 @@
 | v3.0 | 2022/05/05 | Feature: Add Time Config| Feature: Add words forbidden Config | Feature: Add user customize time left | Feature: Remove time exam left |
 | v3.1 | 2022/05/07 | Feature: Add Member_Join_Notification | Feature: Add Member_Left_Notificaion | Fix Bug: Typo at words forbidden | Add Feature: Member_Join_Notification Embed | Featrue: Add Member Config | Feature: Add create invitation link |
 | v3.2 | 2022/05/08 | Add Fearute: Service Ticket | Change Feature: help text to embed |
-| v3.3 | 2022/05/08 | Add Feature: guild Config for Specific Guild |
