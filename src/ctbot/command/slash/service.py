@@ -5,7 +5,8 @@ from ..utils import cog_slash_managed, gen_list_of_choices
 from discord_slash.utils.manage_commands import create_option
 from discord_slash.model import SlashCommandOptionType
 
-# TODO: add open, close, delete, rename, transcript, add, remove, claim, add
+# TODO: add button
+# TODO: add file save(Transcript)
 
 dict_yn = { 'yes' : '是', 'no' : '否' }
 
