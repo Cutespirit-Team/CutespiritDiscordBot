@@ -34,7 +34,7 @@ class SlashHelp(commands.Cog):
 					/pacman pkg_info [套件] | 查詢 Arch 套件資訊
 				''', inline=False)
 		embed.add_field(name='Dicord功能：', value='''
-					/status [狀態] | 更改機器人狀態
+					/status [狀態] [訊息] | 更改機器人狀態
 					/kick [MEMBER] | 踢掉使用者
 					/ban [MEMBER] | 封鎖使用者
 					/unban [MEMBER] | 解封使用者
