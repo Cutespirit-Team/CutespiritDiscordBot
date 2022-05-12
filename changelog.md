@@ -38,3 +38,4 @@
 | v3.1 | 2022/05/07 | Feature: Add Member_Join_Notification | Feature: Add Member_Left_Notificaion | Fix Bug: Typo at words forbidden | Add Feature: Member_Join_Notification Embed | Featrue: Add Member Config | Feature: Add create invitation link |
 | v3.2 | 2022/05/08 | Add Fearute: Service Ticket | Change Feature: help text to embed |
 | v3.3 | 2022/05/08 | Add Feature: guild Config for Specific Guild |
+| v3.4 | 2022/05/12 | Feature: Add TaiwanStock | Feature: Add Help Q and A | Feature: Add service ticket | Fix Bug: weather not respond |

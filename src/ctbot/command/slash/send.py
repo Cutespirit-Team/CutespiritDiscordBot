@@ -10,10 +10,6 @@ class SlashSend(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
 
-    @cog_slash_managed()
-    async def tw(self, ctx):
-        await ctx.send('Taiwan No.1')
-
     @cog_slash_managed(description='重複 n 次訊息',
         options=[
         create_option('msg', '訊息',

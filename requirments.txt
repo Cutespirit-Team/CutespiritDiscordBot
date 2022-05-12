@@ -6,3 +6,5 @@ speedtest-cli
 requests
 bs4
 PyNaCl
+twstock
+lxml

@@ -17,9 +17,9 @@ bot = {
 	'description': '一個由靈萌團隊製作的 Discord 機器人',
 	'experience': '想給每一個discord熱愛者而做的bot',
 	'language': '正體中文',
-	'version': '3.3' ,
+	'version': '3.4' ,
 	'develope_date': '2021/07/19',
-	'last_udpate': '2022/05/08'
+	'last_udpate': '2022/05/12'
 }
 
 team = {

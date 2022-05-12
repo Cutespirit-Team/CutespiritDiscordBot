@@ -5,14 +5,17 @@ from .config import BotConfig
 from discord.ext import commands
 from discord_slash.client import SlashCommand
 from .version import author, bot ,team
+from discord_components import DiscordComponents, ComponentsBot, Button, ButtonStyle
 
 config = BotConfig('../bot.ini')
 class CTBot(commands.Bot):
 	def __init__(self):
+		# super().__init__(command_prefix="/")
 		intents = discord.Intents.default()
 		intents.members = True
 		super().__init__(command_prefix=config.get_general_prefix(), intents=intents)
 		self.logger = logging.getLogger('ctbot')
+		DiscordComponents(self)
 		SlashCommand(self, delete_from_unused_guilds=True, sync_commands=True)
 		if config.get_enable_slash():
 			self.logger.info('Enable slash command.')
@@ -32,6 +35,17 @@ class CTBot(commands.Bot):
 	async def on_message(self, message: discord.Message):
 		if message.author == self.user:
 			return
+		print(f'User:[{str(message.author.name)}] GuildName:{message.guild.id} GuildID:{message.guild.name} ChannelName:{message.channel.name} ChannelID:{message.channel.id} Type:{str(message.content)}')
+		# Test button
+		# if message.content == 'hello_btn':
+		# 	await message.channel.send(
+		# 		"Hello, World!",
+		# 		components = [
+		# 			Button(label = "WOW button!", custom_id = "button1")
+		# 		]
+		# 	)
+		# 	interaction = await self.wait_for("button_click", check = lambda i: i.custom_id == "button1")
+		# 	await interaction.send(content = "Button clicked!")
 
 		# NOTE: use decorate instead except we are going to use manual way to handle commands
 		# responsible_channels = config.get_responsible_channels(message.guild.id)
@@ -46,14 +60,14 @@ class CTBot(commands.Bot):
 					user = message.author.id
 					ID = '<@' + str(user)+'>'
 					await channel.send(ID + '，' + words[i])
-					await message.delete()
+					# await message.delete()
 					break
 				if i.startswith('.') == False and i in message.content:
 					channel = message.channel
 					user = message.author.id
 					ID = '<@' + str(user)+'>'
 					await channel.send(ID + '，' + words[i])
-					await message.delete()
+					# await message.delete()
 					break
 
 		except FileNotFoundError:

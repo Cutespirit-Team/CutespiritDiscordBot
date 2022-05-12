@@ -9,18 +9,18 @@ class SlashHelp(commands.Cog):
 	def __init__(self, bot: discord.Client):
 		self.bot = bot
 
-	@cog_slash_managed(description='幫助')
-	async def help(self, ctx):
+	@cog_slash_managed(base="help", description='幫助')
+	async def cmd(self, ctx):
 		embed=discord.Embed(title=author['name'], url=author['url'], description='此為Cutespirit Discord Bot指令全集。\n用法： /指令 [選項...] [參數...]', color=0x00ffd5)
 		embed.add_field(name='一般：', value='''
-					/help 幫助
+					/help cmd 查看指令幫助
+					/help QandA 查看疑難排解
 					/sendmsg [訊息] [選項] | 傳送訊息
 					/clear [訊息數] | 清除訊息
 					/time current [選項] | 顯示時間
 					/time special_days_left | 特別日倒數計時
 					/time remain_time_left | 今年已經過了多久百分比
 					/calc [選項] [值] | 計算機
-					/tw | Taiwan
 					/weather [地區] | 顯示該地區天氣資訊
 					/hardware | 查看本Bot運行硬體資訊
 					/speedtest | 測試上傳與下載速度
@@ -68,8 +68,42 @@ class SlashHelp(commands.Cog):
 					/github_info | 查看Github資訊
 					/github_visitor | 增加Github訪客人數
 				''', inline=False)
+		embed.add_field(name='股票功能', value='''
+					/stock show [data: str (YYYYMMDD)] [CODE: str]| Ping-Pong
+				''', inline=False)
 		embed.add_field(name='測試指令', value='''
 					/ping | Ping-Pong
 				''', inline=False)
-		embed.set_footer(text='更新日期')
+		await ctx.send(embed=embed)
+
+	@cog_slash_managed(base="help", description='問題排解')
+	async def QandA(self, ctx):
+		embed=discord.Embed(title=author['name'], url=author['url'], description='此為Cutespirit Discord Bot疑難排解', color=0x00ffd5)
+		embed.add_field(name='電腦出現沒指令而手機有該怎麼辦？', value='''
+			別擔心，這是Discord出的錯，請靜待至一兩個小時。如還是沒有，請進入重新邀請機器人，可以使用/invite指令。
+		''', inline=False)
+		embed.add_field(name='當我遇到bug該如何處理？', value='''
+			別擔心，請將bug資訊寄信至 service@cutespirit.org
+		''', inline=False)
+		embed.add_field(name='當我遇到YouTube影片無法播放的時候該怎麼辦？', value='''
+			一、自行架設：
+				請更新機器人至最新版本，或在github提出issue。
+			二、使用官方：
+				請回報至 service@cutespirit.org或在github提出issue。
+		''', inline=False)
+		embed.add_field(name='當我有指令出不來時該怎麼辦？', value='''
+			一、自行架設：
+				請檢查您是否有改寫程式碼，如果有請再三確認您的程式碼。或是將程式碼更新到最新版本。
+			二、使用官方：
+				請靜置10分鐘，或是重新邀請機器人，可以使用/invite指令，如果還是沒有請回報。
+		''', inline=False)
+		embed.add_field(name='有功能不完善怎麼辦？', value='''
+			一、您可以改寫程式碼並發布Pull Requests。
+			二、您可以在Github中提出Issue。
+			三、您可以將您的建議提供至 service@cutespirit.org。
+			四、您可善用團隊資源回報。
+		''', inline=False)
+		embed.add_field(name='靈萌discord機器人會收集您的指令和資料嗎？', value='''
+			靈萌Discord機器人不會蒐集您的資料和您打得文字，靈萌Discord機器人是開源的，可受人檢視，任何人都可以提出問題和Pull Requests。
+		''', inline=False)
 		await ctx.send(embed=embed)
