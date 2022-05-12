@@ -35,7 +35,7 @@ class CTBot(commands.Bot):
 	async def on_message(self, message: discord.Message):
 		if message.author == self.user:
 			return
-		print(f'User:[{str(message.author.name)}] GuildName:{message.guild.id} GuildID:{message.guild.name} ChannelName:{message.channel.name} ChannelID:{message.channel.id} Type:{str(message.content)}')
+		
 		# Test button
 		# if message.content == 'hello_btn':
 		# 	await message.channel.send(

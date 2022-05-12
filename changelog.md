@@ -39,3 +39,4 @@
 | v3.2 | 2022/05/08 | Add Fearute: Service Ticket | Change Feature: help text to embed |
 | v3.3 | 2022/05/08 | Add Feature: guild Config for Specific Guild |
 | v3.4 | 2022/05/12 | Feature: Add TaiwanStock | Feature: Add Help Q and A | Feature: Add service ticket | Fix Bug: weather not respond |
+| v3.5 | 2022/05/12 | Fix Bug: utils.py json import error | Fix Bug: remove development mode |

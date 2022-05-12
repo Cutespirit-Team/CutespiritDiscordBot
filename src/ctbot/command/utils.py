@@ -3,6 +3,7 @@ import importlib
 import logging
 import typing
 import discord
+import json
 from ..ctbot import config
 from discord_slash import cog_ext
 from discord.ext import commands
