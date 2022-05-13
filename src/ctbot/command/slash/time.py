@@ -2,7 +2,7 @@ import discord
 import argparse
 import json
 from discord.ext import commands
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from discord_slash.utils.manage_commands import create_option
 from discord_slash.model import SlashCommandOptionType
 from ..utils import cog_slash_managed, gen_list_of_option_choices
@@ -14,12 +14,12 @@ def get_days_left(deadline, format=None):
 	if type(deadline) == str:
 		deadline = datetime.strptime(deadline, format)
 
-	if (deadline - datetime.now()).days/365 >=1: #如果到期日-今天 還有365天
-		return str((deadline-datetime.now()).days//365) + '年' \
-			 + str((deadline-datetime.now()).days%365) + '天' \
-			 + str((deadline-datetime.now()).seconds//3600) + '小時' \
-			 + str(((deadline-datetime.now()).seconds//60)%60) + '分鐘' #加入年
-	return str((deadline-datetime.now()).days) + '天' + str((deadline-datetime.now()).seconds//3600) + '小時' + str(((deadline-datetime.now()).seconds//60)%60) + '分鐘'
+	if (deadline - datetime.now(timezone(timedelta(hours=+8)))).days/365 >=1: #如果到期日-今天 還有365天
+		return str((deadline-datetime.now(timezone(timedelta(hours=+8)))).days//365) + '年' \
+			 + str((deadline-datetime.now(timezone(timedelta(hours=+8)))).days%365) + '天' \
+			 + str((deadline-datetime.now(timezone(timedelta(hours=+8)))).seconds//3600) + '小時' \
+			 + str(((deadline-datetime.now(timezone(timedelta(hours=+8)))).seconds//60)%60) + '分鐘' #加入年
+	return str((deadline-datetime.now(timezone(timedelta(hours=+8)))).days) + '天' + str((deadline-datetime.now(timezone(timedelta(hours=+8)))).seconds//3600) + '小時' + str(((deadline-datetime.now(timezone(timedelta(hours=+8)))).seconds//60)%60) + '分鐘'
 
 def get_special_days_left():
 	try:
@@ -74,7 +74,7 @@ class SlashTime(commands.Cog):
 				required=False,
 				choices=gen_list_of_option_choices(['西元','民國']))])
 	async def remain_time_left(self, ctx, format=None):
-		today = datetime.now()
+		today = datetime.now(timezone(timedelta(hours=+8)))
 		year, month, day, hour, minute, second, week = today.timetuple()[:7]
 		remain_time = get_remain_time(year, month, day, hour, minute, second)
 		if '民國' in str(format):
@@ -97,7 +97,7 @@ class SlashTime(commands.Cog):
 			)])
 	async def current(self, ctx, format: str = ''):
 		args = self.parser.parse_args(format.split(' '))
-		today = datetime.now()
+		today = datetime.now(timezone(timedelta(hours=+8)))
 		year, month, day, hour, minute, second, week = today.timetuple()[:7]
 
 		if args.date:

@@ -40,3 +40,4 @@
 | v3.3 | 2022/05/08 | Add Feature: guild Config for Specific Guild |
 | v3.4 | 2022/05/12 | Feature: Add TaiwanStock | Feature: Add Help Q and A | Feature: Add service ticket | Fix Bug: weather not respond |
 | v3.5 | 2022/05/12 | Fix Bug: utils.py json import error | Fix Bug: remove development mode | Feature: Add stauts type |
+| v3.6 | 2022/05/14 | Feature: Add Reaction Role | Fix bug: time zone | Feature: Add spam words detect | Feature: Add specific channel id when specific reaction roles | Feature: Remove notification when opening a ticket | Add Feature: Give guest role when a member join | Files: Add configuration example |

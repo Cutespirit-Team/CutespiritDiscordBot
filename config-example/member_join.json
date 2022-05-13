@@ -1,0 +1,8 @@
+{
+"//config_name" : "//ctbot.py",
+"join_role_id" : "//give a specific role when a member join. ID",
+"member_join_text" : "//send text when a member join. Welcome {member_mention} to {guild_name}!",
+"enable_embed" : "//enable embed or not. yes/no",
+"embed_join_text" : "//if enable  embed, send text when a member join. Yo~ {member_mention} 歡迎您加入 Cutespirit Team 伺服器群組喔！ 啾咪!別忘記去領取身分組",
+"enable_embed_thumbnail" : "enable embed thumbnail or not. yes/no"
+}

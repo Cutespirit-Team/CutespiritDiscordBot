@@ -1,0 +1,6 @@
+{
+    "//config_name" : "//ctbot.py",
+    "//Words forbidden" : "//Send the text after receiving forbidden words",
+    "Example1" : "a word",
+    ".Example2." : "a word in a sentense"
+}

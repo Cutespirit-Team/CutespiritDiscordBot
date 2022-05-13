@@ -25,6 +25,7 @@ class SlashActivity(commands.Cog):
         	required=True)
         	])
 	async def status(self, ctx, ty: str, msg: str):
+		print(f'[Status] User:[{str(ctx.author.name)}] GuildName:{ctx.guild.id} GuildID:{ctx.guild.name} ChannelName:{ctx.channel.name} ChannelID:{ctx.channel.id} Type:{str(msg)}')
 		if ty == 'online':
 			await self.bot.change_presence(status=discord.Status.online, activity=discord.Game(msg))
 		elif ty == 'idle':

@@ -1,0 +1,7 @@
+{
+    "//config_name" : "//ctbot.py",
+    "member_leave_text": "//send text when a member leave.{member_name} !",
+    "enable_embed": "enable embed or not. yes/no",
+    "embed_leave_text": "//if enable  embed, send text when a member leave. Yo~ {member_mention} 離開了 Cutespirit Team 伺服器群組喔！",
+    "enable_embed_thumbnail": "enable embed thumbnail or not. yes/no"
+}

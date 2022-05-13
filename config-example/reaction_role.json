@@ -1,0 +1,5 @@
+{
+  "//config_name" : "//ctbot.py",
+  "channel_id" : "//use specific channel id of reaction role. ID",
+  "emoji_name" : "//role_id"
+}

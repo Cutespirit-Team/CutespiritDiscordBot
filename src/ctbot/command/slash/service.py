@@ -1,5 +1,5 @@
 import discord
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from discord.ext import commands
 # import discord_interactions
 from discord_slash import SlashCommand, cog_ext
@@ -33,7 +33,7 @@ class SlashService(commands.Cog):
 			await ctx.send('警告：您已經在服務客服單中了，無法重新開啟。')
 		else:                                   # in other TextChannel: open
 			channel_name = ctx.channel.name
-			today = datetime.now()
+			today = datetime.now(timezone(timedelta(hours=+8)))
 			now_today = today.strftime("%m%d-%H%M")
 			ticket_ID = 'Ticket-' + now_today
 			overwrites = {
@@ -42,9 +42,9 @@ class SlashService(commands.Cog):
 			# your_role: discord.PermissionOverwrite(view_channel=True)
 			}
 			service_channel = await ctx.guild.create_text_channel(ticket_ID, overwrites=overwrites)
-			text = '服務客服單已被' + ctx.author.name + '打開'
-			await ctx.send(text)
-			text = '歡迎 <@' + str(ctx.author.id) + '> 來到服務客服單\n如果要關閉服務客服單請輸入點擊 🔒\n單號：' + ticket_ID
+			# text = '服務客服單已被' + ctx.author.name + '打開'
+			# await ctx.send(text)
+			text = '歡迎 <@' + str(ctx.author.id) + '> 來到服務客服單\n\n如果要關閉服務客服單請輸入點擊 🔒\n\n單號：' + ticket_ID
 			embed=discord.Embed(description=text, color=0x2cff00)
 			text = '服務客服單 - 靈萌團隊 Discord 機器人'
 			embed.set_footer(text=text)
@@ -184,7 +184,7 @@ class SlashService(commands.Cog):
 			await ctx.send('警告：您已經在服務客服單中了，無法重新開啟。')
 		else:                                   # in other TextChannel: open
 			channel_name = ctx.channel.name
-			today = datetime.now()
+			today = datetime.now(timezone(timedelta(hours=+8)))
 			now_today = today.strftime("%m%d-%H%M")
 			ticket_ID = 'Ticket-' + now_today
 			overwrites = {
@@ -193,11 +193,9 @@ class SlashService(commands.Cog):
 			# your_role: discord.PermissionOverwrite(view_channel=True)
 			}
 			service_channel = await ctx.guild.create_text_channel(ticket_ID, overwrites=overwrites)
-			text = '服務客服單已被' + ctx.author.name + '打開'
-			await ctx.send(text)
-			text = f'''歡迎 <@{str(ctx.author.id)}> 來到服務客服單\n
-						如果要關閉服務客服單請輸入點擊 🔒\n單號：{ticket_ID}\n
-						如欲查看服務客服單說明，請使用指令「/service manual」。'''
+			# text = '服務客服單已被' + ctx.author.name + '打開'
+			# await ctx.send(text)
+			text = f'''歡迎 <@{str(ctx.author.id)}> 來到服務客服單\n如果要關閉服務客服單請輸入點擊 🔒\n單號：{ticket_ID}\n如欲查看服務客服單說明，請使用指令「/service manual」。'''
 			embed=discord.Embed(description=text, color=0x2cff00)
 			text = '服務客服單 - 靈萌團隊 Discord 機器人'
 			embed.set_footer(text=text)

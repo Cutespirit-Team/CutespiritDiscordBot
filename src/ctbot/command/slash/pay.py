@@ -5,7 +5,7 @@ from discord_slash.utils.manage_commands import create_option
 from discord_slash.utils import manage_components
 from discord_slash.model import SlashCommandOptionType , ButtonStyle
 from discord_ui import Button
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from ...version import shop , bot, author, team
 import requests
 import os
@@ -31,7 +31,7 @@ def search(text):
     return 'NULL'
 
 def getOrderCode():
-    time = datetime.now()
+    time = datetime.now(timezone(timedelta(hours=+8)))
     sec = ''.join(secrets.choice(string.ascii_letters) for _ in range(6))
     time = datetime.strftime(time,'%Y_%m_%d_%H_%M_%S_')
     return time + sec

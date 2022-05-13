@@ -13,6 +13,8 @@ python -m ctbot
 ```
 
 ## Config Sample
+[Configuration Example](config-example/)
+bot.int
 ```ini
 [bot]
 # First run you need to change token to your bot token.

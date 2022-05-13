@@ -80,30 +80,41 @@ class SlashHelp(commands.Cog):
 	async def QandA(self, ctx):
 		embed=discord.Embed(title=author['name'], url=author['url'], description='此為Cutespirit Discord Bot疑難排解', color=0x00ffd5)
 		embed.add_field(name='電腦出現沒指令而手機有該怎麼辦？', value='''
-			別擔心，這是Discord出的錯，請靜待至一兩個小時。如還是沒有，請進入重新邀請機器人，可以使用/invite指令。
+	別擔心，這是Discord出的錯，請靜待至一兩個小時。如還是沒有，請進入重新邀請機器人，可以使用/invite指令。
 		''', inline=False)
 		embed.add_field(name='當我遇到bug該如何處理？', value='''
-			別擔心，請將bug資訊寄信至 service@cutespirit.org
+	別擔心，請將bug資訊寄信至 service@cutespirit.org
 		''', inline=False)
 		embed.add_field(name='當我遇到YouTube影片無法播放的時候該怎麼辦？', value='''
-			一、自行架設：
-				請更新機器人至最新版本，或在github提出issue。
-			二、使用官方：
-				請回報至 service@cutespirit.org或在github提出issue。
+	一、自行架設：
+		請更新機器人至最新版本，或在github提出issue。
+	二、使用官方：
+		請回報至 service@cutespirit.org或在github提出issue。
 		''', inline=False)
 		embed.add_field(name='當我有指令出不來時該怎麼辦？', value='''
-			一、自行架設：
-				請檢查您是否有改寫程式碼，如果有請再三確認您的程式碼。或是將程式碼更新到最新版本。
-			二、使用官方：
-				請靜置10分鐘，或是重新邀請機器人，可以使用/invite指令，如果還是沒有請回報。
+	一、自行架設：
+		請檢查您是否有改寫程式碼，如果有請再三確認您的程式碼。或是將程式碼更新到最新版本。
+	二、使用官方：
+		請靜置10分鐘，或是重新邀請機器人，可以使用/invite指令，如果還是沒有請回報。
 		''', inline=False)
 		embed.add_field(name='有功能不完善怎麼辦？', value='''
-			一、您可以改寫程式碼並發布Pull Requests。
-			二、您可以在Github中提出Issue。
-			三、您可以將您的建議提供至 service@cutespirit.org。
-			四、您可善用團隊資源回報。
+	一、您可以改寫程式碼並發布Pull Requests。
+	二、您可以在Github中提出Issue。
+	三、您可以將您的建議提供至 service@cutespirit.org。
+	四、您可善用團隊資源回報。
 		''', inline=False)
 		embed.add_field(name='靈萌discord機器人會收集您的指令和資料嗎？', value='''
-			靈萌Discord機器人不會蒐集您的資料和您打得文字，靈萌Discord機器人是開源的，可受人檢視，任何人都可以提出問題和Pull Requests。
+	靈萌Discord機器人不會蒐集您的資料和您打得文字，靈萌Discord機器人是開源的，可受人檢視，任何人都可以提出問題和Pull Requests。
+		''', inline=False)
+		embed.add_field(name='如何進行發問？', value='''
+	一、請留下您的Email信箱或Discord ID等聯繫方式以便我們連繫您。
+	二、請簡明扼要說明您的敘述。
+	三、請保持禮貌。
+	四、請善用圖片(URL)
 		''', inline=False)
 		await ctx.send(embed=embed)
+
+	@cog_slash_managed(base="help", description='Bug和問題客服和上報')
+	async def report(self, ctx, msg: str):
+		# TODO: Send msg to Admin
+		await ctx.send('Function not finished')
