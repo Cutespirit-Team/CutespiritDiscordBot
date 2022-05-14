@@ -41,23 +41,23 @@ class SlashStock(commands.Cog):
 
 			embed=discord.Embed(title=bot['name'], url=bot['url'],description=f'''
 				股票代號：{code}，股票名稱：{latest_stock['info']['name']}\n
-				股票全名：{latest_stock['info']['fullname']}''', color=0x00ffd5) #沒出現
+				股票全名：{latest_stock['info']['fullname']}''', color=0x00ffd5)
 			# for index in range(len(data['fields'])):
 			# 	embed.add_field(name=data['fields'][index], value=stock[index], inline=True)
 
 			embed.add_field(name=data['fields'][0], value=stock[0], inline=True) #日期
 			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #成交股數
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #成交金額
+			embed.add_field(name=data['fields'][2], value=stock[2], inline=True) #成交金額
 
 			embed.add_field(name=data['fields'][0], value=stock[0], inline=True) #日期
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #開盤
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #最高
+			embed.add_field(name=data['fields'][3], value=stock[3], inline=True) #開盤
+			embed.add_field(name=data['fields'][6], value=stock[6], inline=True) #收盤
+			
+			embed.add_field(name=data['fields'][0], value=stock[0], inline=True) #日期
+			embed.add_field(name=data['fields'][5], value=stock[5], inline=True) #最低
+			embed.add_field(name=data['fields'][4], value=stock[4], inline=True) #最高
 
 			embed.add_field(name=data['fields'][0], value=stock[0], inline=True) #日期
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #最低
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #收盤
-
-			embed.add_field(name=data['fields'][0], value=stock[0], inline=True) #日期
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #漲跌價差
-			embed.add_field(name=data['fields'][1], value=stock[1], inline=True) #成交比數
+			embed.add_field(name=data['fields'][7], value=stock[7], inline=True) #漲跌價差
+			embed.add_field(name=data['fields'][8], value=stock[8], inline=True) #成交比數
 			await ctx.send(embed=embed)

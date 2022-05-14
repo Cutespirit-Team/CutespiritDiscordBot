@@ -1,0 +1,5 @@
+{
+"//config_name" : "//service.py",
+"enable_close_move_category" : "//enable close move category or not. yes/no",
+"close_move_category" : "//To move close ticket to the category. Name of category."
+}

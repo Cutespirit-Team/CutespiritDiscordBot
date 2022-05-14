@@ -1,4 +1,5 @@
 import discord
+import json
 from datetime import datetime, timezone, timedelta
 from discord.ext import commands
 # import discord_interactions
@@ -66,7 +67,26 @@ class SlashService(commands.Cog):
 		if channel_name.startswith('ticket'):   # in ticket TextChannel: close
 			if confirm == 'yes':
 				name =  'closed-' + channel_name.split('-')[1] + '-' +channel_name.split('-')[2]
-				await ctx.channel.edit(name=name)
+				try:
+					config = open('config/service.json', mode='r', encoding='utf-8')
+					config = json.load(config)
+
+					if config['enable_close_move_category'] == 'yes':
+						category = discord.utils.get(ctx.guild.channels, name=config['close_move_category'])
+						await ctx.channel.edit(name=name, category=category)
+					elif config['enable_close_move_category'] == 'no':
+						await ctx.channel.edit(name=name)
+					else:
+						print('Error Json File Config')
+				except FileNotFoundError:
+					filename = 'config/service.json'
+					content = {
+						'enable_close_move_category' : 'yes',
+						'close_move_category' : 'Ticket-Archived',
+						}
+					f = open(filename, 'w')
+					json.dump(content, f, indent=4)
+					f.close()
 				embed=discord.Embed(description=f'<@{str(ctx.author.id)}> 已關閉客服服務單\n如欲重新打開服務客服單，請使用指令「/service open」', color=0x2cff00)
 				# buttons = [create_button(style=ButtonStyle.blue, label="開啟服務客服單", custom_id="close_open_service")]
 				# buttons3 = [create_button(style=ButtonStyle.blue, label="開啟服務客服單", custom_id="open_service")]

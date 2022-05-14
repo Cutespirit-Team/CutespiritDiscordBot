@@ -124,9 +124,6 @@ class CTBot(commands.Bot):
 				config = open('config/member_join.json', mode='r', encoding='utf-8')
 				config = json.load(config)
 				to_send = config['member_join_text']
-				config = open('config/member_join.json', mode='r', encoding='utf-8')
-				config = json.load(config)
-				to_send = config['member_join_text']
 				join_role_id = config['join_role_id']
 				role = guild.get_role(int(join_role_id))
 				await member.add_roles(role)
