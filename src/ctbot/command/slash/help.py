@@ -38,7 +38,7 @@ class SlashHelp(commands.Cog):
 					/kick [MEMBER] | 踢掉使用者
 					/ban [MEMBER] | 封鎖使用者
 					/unban [MEMBER] | 解封使用者
-					/membercount | 查看伺服器人數
+					/server_state | 查看伺服器資訊
 					/invite | 建立邀請連結
 				''', inline=False)
 		embed.add_field(name='服務客服單功能：', value='''
@@ -54,6 +54,8 @@ class SlashHelp(commands.Cog):
 					/yt next | 下一首
 					/yt prev | 上一首
 					/yt clear | 清除播放清單
+					/yt channel_info [channel_id] | 得到頻道資訊
+					/yt video_info [video_id] | 得到影片資訊
 				''', inline=False)
 		embed.add_field(name='Cutespirit-SHOP功能', value='''
 					/product_order [產品名稱] [價格] [Email] | 商品下單
@@ -73,6 +75,7 @@ class SlashHelp(commands.Cog):
 				''', inline=False)
 		embed.add_field(name='測試指令', value='''
 					/ping | Ping-Pong
+					/reload | 重新載入已註冊的斜線指令
 				''', inline=False)
 		await ctx.send(embed=embed)
 

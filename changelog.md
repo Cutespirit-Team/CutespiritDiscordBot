@@ -42,3 +42,4 @@
 | v3.5 | 2022/05/12 | Fix Bug: utils.py json import error | Fix Bug: remove development mode | Feature: Add stauts type |
 | v3.6 | 2022/05/14 | Feature: Add Reaction Role | Fix bug: time zone | Feature: Add spam words detect | Feature: Add specific channel id when specific reaction roles | Feature: Remove notification when opening a ticket | Add Feature: Give guest role when a member join | Files: Add configuration example |
 | v3.7 | 2022/05/14 | Fix Bug: member join error | Feature: when ticket closed, move it to category | Fix Bug: Taiwan stock output error |
+| v4.0 | 2022/06/25 | Feature: Add normal role of clicking reaction | Feature: Add reload command | Feature: Remove config recreating | Feature: Add reload status notification | Feature: Add sendmsg permission | Feature: Integrate member_count to server_state | Feature: Add YouTube channel info | Feature: Add YouTube video info |

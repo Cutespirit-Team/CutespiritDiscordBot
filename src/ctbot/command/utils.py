@@ -4,6 +4,7 @@ import logging
 import typing
 import discord
 import json
+import sys
 from ..ctbot import config
 from discord_slash import cog_ext
 from discord.ext import commands
@@ -22,8 +23,24 @@ def regist_slash_command(bot):
         for name, kless in klasses:
             #print(module , name.lower())
             if name.startswith('Slash') and module == name.lower()[5:]:
-                logger.info(f'Registing {name}')
+                logger.info(f'Registing Module {name}')
                 bot.add_cog(kless(bot))
+
+def reload_module(bot):
+	modules = [p.name for p in Path(f'{dirname(__file__)}/slash/').glob('*.py') if p.is_file() and not p.name.endswith('__init__.py')]
+	for m in modules:
+		module_name = 'ctbot.command.slash.' + inspect.getmodulename(m)
+		module = sys.modules[module_name]
+		importlib.reload(module)
+		klasses = inspect.getmembers(module, lambda x: inspect.isclass(x))
+		for name, kless in klasses:
+			#print(module , name.lower())
+			if name.startswith('Slash') and inspect.getmodulename(m) == name.lower()[5:]:
+				logger.info(f'Re-Registing Module {name}')
+				bot.remove_cog(name)
+				bot.add_cog(kless(bot))
+	logger.info(f'All Modules has reloaded!')
+			# print('reload ok' + inspect.getmodulename(m), name, kless)
 
 def cog_slash_managed(*args, **kwargs):
 	'''

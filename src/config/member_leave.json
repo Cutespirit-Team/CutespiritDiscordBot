@@ -1,0 +1,7 @@
+{
+    "//config_name" : "//ctbot.py",
+    "member_leave_text": "{member_name} 離開了我們QQ!",
+    "enable_embed": "yes",
+    "embed_leave_text": "{member_name} 無情又殘忍地離開了 Cutespirit Team 伺服器群組喔！QQ",
+    "enable_embed_thumbnail": "no"
+}

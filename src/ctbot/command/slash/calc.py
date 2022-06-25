@@ -1,9 +1,36 @@
 import discord
 import math
+import ast
+import operator
 from discord.ext import commands
 from ..utils import cog_slash_managed, gen_list_of_choices
 from discord_slash.utils.manage_commands import create_option, create_choice
 from discord_slash.model import SlashCommandOptionType
+
+# TODO: Fix slash command error
+# TODO: Fix expr has x y z error
+
+class exprCalc(ast.NodeVisitor):
+
+    def visit_BinOp(self, node):
+        left = self.visit(node.left)
+        right = self.visit(node.right)
+        return _OP_MAP[type(node.op)](left, right)
+
+    def visit_Num(self, node):
+        return node.n
+
+    def visit_Expr(self, node):
+        return self.visit(node.value)
+
+    @classmethod
+    def evaluate(cls, expression):
+        tree = ast.parse(expression)
+        calc = cls()
+        return calc.visit(tree.body[0])
+
+def expression(expr: str):
+    return Calc.evaluate(expr)
 
 def linearEqSo(a: str, b: str, c: str):
     a = float(a)
@@ -57,7 +84,16 @@ func_dict = {
     'sub': {'argc': 2, 'func': lambda x, y: x - y},
     'mult': {'argc': 2, 'func': lambda x, y: x * y},
     'div': {'argc': 2, 'func': lambda x, y: x / y},
-}        
+    'expr': {'argc': 1, 'func': expression},
+}
+
+_OP_MAP = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.floordiv,
+    ast.Invert: operator.neg,
+}
 
 class SlashCalc(commands.Cog):
     def __init__(self, bot: discord.Client):

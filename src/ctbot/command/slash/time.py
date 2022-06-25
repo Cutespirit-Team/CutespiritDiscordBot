@@ -22,22 +22,12 @@ def get_days_left(deadline, format=None):
 	return str((deadline-datetime.now(timezone(timedelta(hours=+8)))).days) + '天' + str((deadline-datetime.now(timezone(timedelta(hours=+8)))).seconds//3600) + '小時' + str(((deadline-datetime.now(timezone(timedelta(hours=+8)))).seconds//60)%60) + '分鐘'
 
 def get_special_days_left():
-	try:
-		timeLabel = open('config/timeLabel.json', mode='r', encoding='utf-8')
-		timeLabel = json.load(timeLabel)
-		text = ''
-		for i in timeLabel.keys():
-			text += f'{timeLabel[i]} {i} {get_days_left(timeLabel[i], date_format)}\n'
-		return text
-	except FileNotFoundError:
-		filename = 'config/timeLeftLabel.json'
-		content = {
-			'My Birthday' : '2022/12/01',
-			'Example Day' : 'YYYY/MM/DD'
-		}
-		f = open(filename, 'w')
-		json.dump(content, f, indent=4)
-		f.close()
+	timeLabel = open('config/timeLabel.json', mode='r', encoding='utf-8')
+	timeLabel = json.load(timeLabel)
+	text = ''
+	for i in timeLabel.keys():
+		text += f'{timeLabel[i]} {i} {get_days_left(timeLabel[i], date_format)}\n'
+	return text
 
 def get_remain_time(year, month, day, hour, minute, second):
 	d1 = datetime(year,1,1)

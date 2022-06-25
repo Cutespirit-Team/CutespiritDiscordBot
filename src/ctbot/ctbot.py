@@ -2,11 +2,16 @@ import discord
 import logging
 import json
 import datetime
+import sys
+from .version import bot, team, author
+from importlib import reload, import_module
 from .config import BotConfig
 from discord.ext import commands
 from discord_slash.client import SlashCommand
-from .version import author, bot ,team
 from discord_components import DiscordComponents, ComponentsBot, Button, ButtonStyle
+
+# TODO: Show : "Updated to version"
+# TODO: Fix slash command not auto update error(cmd not content)
 
 config = BotConfig('../bot.ini')
 time_window_milliseconds = 10000
@@ -40,6 +45,18 @@ class CTBot(commands.Bot):
 	async def on_message(self, message: discord.Message):
 		if message.author == self.user:
 			return
+			
+		# reload registed slash command
+		if message.content == '/reload':
+			# module = sys.modules['ctbot.version']
+			# reload(module)
+			# print(bot['version'])
+			from .command.utils import reload_module
+			await self.change_presence(status=discord.Status.dnd, activity=discord.Game('Updating...'))
+			reload_module(self)
+			# await self.change_presence(status=discord.Status.online, activity=discord.Game(f'Updated to v{bot["version"]}'))
+			await self.change_presence(status=discord.Status.online, activity=discord.Game(f'Updated the command!'))
+
 		global author_msg_counts
 
 		author_id = message.author.id
@@ -86,127 +103,86 @@ class CTBot(commands.Bot):
 		# responsible_channels = config.get_responsible_channels(message.guild.id)
 		# if len(responsible_channels) != 0 and message.channel.id not in responsible_channels:
 		# 	await message.add_reaction('😷')
-		try:
-			words = open('config/words.json', mode='r', encoding='utf-8')
-			words = json.load(words)
-			for i in words.keys():
-				if i.startswith('.') and i[1:-1] == message.content:
-					channel = message.channel
-					user = message.author.id
-					ID = '<@' + str(user)+'>'
-					await channel.send(ID + '，' + words[i])
-					# await message.delete()
-					break
-				if i.startswith('.') == False and i in message.content:
-					channel = message.channel
-					user = message.author.id
-					ID = '<@' + str(user)+'>'
-					await channel.send(ID + '，' + words[i])
-					# await message.delete()
-					break
 
-		except FileNotFoundError:
-			filename = 'config/words.json'
-			content = {
-				'Example1' : 'a word',
-				'.Example2.' : 'a word in a sentense'
-				}
-			f = open(filename, 'w')
-			json.dump(content, f, indent=4)
-			f.close()
+		words = open('config/words.json', mode='r', encoding='utf-8')
+		words = json.load(words)
+		for i in words.keys():
+			if i.startswith('.') and i[1:-1] == message.content:
+				channel = message.channel
+				user = message.author.id
+				ID = '<@' + str(user)+'>'
+				await channel.send(ID + '，' + words[i])
+				# await message.delete()
+				break
+			if i.startswith('.') == False and i in message.content:
+				channel = message.channel
+				user = message.author.id
+				ID = '<@' + str(user)+'>'
+				await channel.send(ID + '，' + words[i])
+				# await message.delete()
+				break
 
 	async def on_member_join(self, member):
 		guild = member.guild
 		if guild.system_channel is not None:
 			
 			# self.logger.info(f'{member.mention} 加入了伺服器')
-			try:
-				config = open('config/member_join.json', mode='r', encoding='utf-8')
-				config = json.load(config)
-				to_send = config['member_join_text']
-				join_role_id = config['join_role_id']
-				role = guild.get_role(int(join_role_id))
+			config = open('config/member_join.json', mode='r', encoding='utf-8')
+			config = json.load(config)
+			to_send = config['member_join_text']
+			join_role_id = config['join_role_id']
+			role = guild.get_role(int(join_role_id))
+			if role != None:
 				await member.add_roles(role)
 
-				if config['enable_embed'] == 'no':
-					await guild.system_channel.send(to_send.format(member_mention=member.mention, guild_name=guild.name))
-				elif config['enable_embed'] == 'yes':
-					embed=discord.Embed(title=bot['name'], url=bot['url'], description=config['embed_join_text'].format(member_mention=member.mention), color=0x00ffd5)
-					embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
-					if config['enable_embed_thumbnail'] == 'yes':
-						embed.set_thumbnail(url=bot['icon'])
-					await guild.system_channel.send(embed=embed)
-				else:
-					print('Error Json File Config')
-			except FileNotFoundError:
-				filename = 'config/member_join.json'
-				content = {
-					'member_join_text' : 'Welcome {member_mention} to {guild_name}!',
-					'enable_embed' : 'yes',
-					'embed_join_text' : 'Yo~ {member_mention} 歡迎您加入 Cutespirit Team 伺服器群組喔！ 啾咪~別忘記去領取身分組',
-					'enable_embed_thumbnail' : 'no'
-					}
-				f = open(filename, 'w')
-				json.dump(content, f, indent=4)
-				f.close()
+			if config['enable_embed'] == 'no':
+				await guild.system_channel.send(to_send.format(member_mention=member.mention, guild_name=guild.name))
+			elif config['enable_embed'] == 'yes':
+				embed=discord.Embed(title=version.bot['name'], url=version.bot['url'], description=config['embed_join_text'].format(member_mention=member.mention), color=0x00ffd5)
+				embed.set_author(name=version.team['name'], url=version.bot['url'], icon_url=version.bot['icon'])
+				if config['enable_embed_thumbnail'] == 'yes':
+					embed.set_thumbnail(url=version.bot['icon'])
+				await guild.system_channel.send(embed=embed)
+			else:
+				print('Error Json File Config')
 
 	async def on_member_remove(self, member):
 		guild = member.guild
 		if guild.system_channel is not None:
 			
 			# self.logger.info(f'{member.mention} 離開了伺服器')
-			try:
-				config = open('config/member_leave.json', mode='r', encoding='utf-8')
-				config = json.load(config)
-				to_send = config['member_leave_text']
-				if config['enable_embed'] == 'no':
-					await guild.system_channel.send(to_send.format(member_name=member.name))
-				elif config['enable_embed'] == 'yes':
-					embed=discord.Embed(title=bot['name'], url=bot['url'], description=config['embed_leave_text'].format(member_name=member.name), color=0x00ffd5)
-					embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
-					if config['enable_embed_thumbnail'] == 'yes':
-						embed.set_thumbnail(url=bot['icon'])
-					await guild.system_channel.send(embed=embed)
-				else:
-					print('Error Json File Config')
-			except FileNotFoundError:
-				filename = 'config/member_leave.json'
-				content = {
-					'member_leave_text' : '{member_name} 離開了我們QQ!',
-					'enable_embed' : 'yes',
-					'embed_leave_text' : '{member_name} 無情又殘忍地離開了 Cutespirit Team 伺服器群組喔！QQ',
-					'enable_embed_thumbnail' : 'no'
-					}
-				f = open(filename, 'w')
-				json.dump(content, f, indent=4)
-				f.close()
+			config = open('config/member_leave.json', mode='r', encoding='utf-8')
+			config = json.load(config)
+			to_send = config['member_leave_text']
+			if config['enable_embed'] == 'no':
+				await guild.system_channel.send(to_send.format(member_name=member.name))
+			elif config['enable_embed'] == 'yes':
+				embed=discord.Embed(title=version.bot['name'], url=version.bot['url'], description=config['embed_leave_text'].format(member_name=member.name), color=0x00ffd5)
+				embed.set_author(name=version.team['name'], url=version.bot['url'], icon_url=version.bot['icon'])
+				if config['enable_embed_thumbnail'] == 'yes':
+					embed.set_thumbnail(url=version.bot['icon'])
+				await guild.system_channel.send(embed=embed)
+			else:
+				print('Error Json File Config')
 
 	# TODO: Add specific channel id for spectific reaction role
 	# TODO: Change time zone for Asia time
 	async def on_raw_reaction_add(self, payload):
-		try:
-			config = open('config/reaction_role.json', mode='r', encoding='utf-8')
-			config = json.load(config)
-			emoji = payload.emoji
-			guild = self.get_guild(payload.guild_id)
-			channel_ID = config['channel_id']
-			if payload.channel_id == int(channel_ID):
+		config = open('config/reaction_role.json', mode='r', encoding='utf-8')
+		config = json.load(config)
+		emoji = payload.emoji
+		guild = self.get_guild(payload.guild_id)
+		channel_ID = eval('[' + config['channel_id'] + ']')
+		for i in channel_ID:
+			if payload.channel_id == int(i):
 				for emoji_ID in config.keys():
 					if emoji_ID == emoji.name:
 						# 給身分組
 						role = guild.get_role(int(config[emoji_ID]))
+						normal_person_role = guild.get_role(int(config['normal_person_role']))
 						await payload.member.add_roles(role)
+						await payload.member.add_roles(normal_person_role)
 						
-		except FileNotFoundError:
-			filename = 'config/reaction_role.json'
-			content = {
-				'channel_id' : 'channel_id',
-				'EMOJI_ID' : 'ROLE_ID'
-				}
-			f = open(filename, 'w')
-			json.dump(content, f, indent=4)
-			f.close()
-
 	# async def on_error(self, ev, *args, **kwargs):
 	# 	pass
 

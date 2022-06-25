@@ -1,0 +1,6 @@
+{
+"member_join_text" : "Welcome {member_mention} to {guild_name}!",
+"enable_embed" : "yes",
+"embed_join_text" : "Yo~ {member_mention} 歡迎您加入 Cutespirit Team 伺服器群組喔！ 啾咪~別忘記去領取身分組",
+"enable_embed_thumbnail" : "no"
+}

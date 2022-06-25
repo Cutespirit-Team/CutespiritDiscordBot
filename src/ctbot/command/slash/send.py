@@ -6,6 +6,8 @@ from discord_slash.utils.manage_commands import create_option
 from discord_slash.model import SlashCommandOptionType
 from discord.utils import get
 
+# TODO: Fix connot show error
+
 class SlashSend(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
@@ -24,6 +26,7 @@ class SlashSend(commands.Cog):
         create_option('delay', '延遲: 0 ~ 10 秒',
         option_type=SlashCommandOptionType.INTEGER,
         required=False)])
+    @commands.has_permissions(manage_messages=True)
     async def sendmsg(self, ctx, msg:str, repeat: int=1, counter: bool=False, delay: int=1):
         delay = min(10, max(0, delay))
         repeat = min(5, max(1, repeat))
@@ -38,3 +41,10 @@ class SlashSend(commands.Cog):
 
             await channel.send(txt)
             await sleep(delay)
+
+    @sendmsg.error
+    async def sendmsg_error(error, ctx):
+        if isinstance(error, MissingPermissions):
+            member_name = ctx.author.name
+            text = member_name + '沒有刷訊息的權限喔'
+            await ctx.send(text)
