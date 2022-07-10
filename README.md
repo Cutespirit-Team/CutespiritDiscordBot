@@ -1,7 +1,7 @@
 # Cutespirit Discord Bot
 ## Install and Run
 ```sh
-git clone -b rewrite https://github.com/Cutespirit-Team/CutespiritDiscordBot
+git clone https://github.com/Cutespirit-Team/CutespiritDiscordBot
 
 # install requirements
 cd ./CutespiritDiscordBot/
@@ -13,6 +13,8 @@ python -m ctbot
 ```
 
 ## Config Sample
+[Configuration Example](config-example/)
+bot.int
 ```ini
 [bot]
 # First run you need to change token to your bot token.
@@ -39,19 +41,16 @@ example.ping = 866199579014987816,96230004047740928
 # only response message in specific channels (not work in slash commands)
 responsible_channels = 866213047016882206,866977922929917972
 ```
-
-## WIP
-* None
-
----
 ## 關於我們
 [Team Website](https://www.cutespirit.org) <br>
-[Team Facebook](https://www.facebook.com/cutespirit05428/) <br>
-[XiaTerShi YouTube](https://www.youtube.com/channel/UCPdpFDFOp3sPbZhRkaQVaQA) <br>
-[XiaTerShi FaceBook](https://www.facebook.com/Tershi25648) <br>
-[Tershi MailServer](https://mail.tershi.ml) <br>
-[Tershi Official WebSite](https://cutespirit.tershi.ml) <br>
-[Tershi Gitbook](https://gitbook.tershi.ml) <br>
-[Tershi Telegram](https://t.me/TershiXia) <br>
-以上關於因為域名為免費域 因此隨時會網域更換！ <br>
-Licence:© Cutespirit 2021 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
+[Team Facebook](https://fb.cutespirit.org) <br>
+[Team Discord](https://discord.cutespirit.org)<br>
+[Team Telegram](https://telegram.cutespirit.org)<br>
+[Cutespirit-SHOP](https://shop.cutespirit.org)<br>
+[Cutespirit Discord Bot](https://dcbot.cutespirit.org)<br>
+
+# 趨勢
+[![Stargazers over time](https://starchart.cc/Cutespirit-Team/CutespiritDiscordBot.svg)](https://starchart.cc/Cutespirit-Team/CutespiritDiscordBot)
+
+
+Licence:© Cutespirit 2022 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
