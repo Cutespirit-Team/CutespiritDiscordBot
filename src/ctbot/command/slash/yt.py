@@ -7,6 +7,8 @@ from ...player import SimplePlayer
 from ...version import bot, team, author, YouTube
 
 # TODO: make permission check for next, prev, stop, pause, lcear function
+# TODO: get playlist info
+
 class SlashYT(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
@@ -111,3 +113,22 @@ class SlashYT(commands.Cog):
         embed.add_field(name='頻道ID', value=snippet['channelId'], inline=True)
         embed.set_footer(text='技術提供: 靈萌團隊')
         await ctx.send(embed=embed)
+
+    # @cog_slash_managed(base='yt', description='查看播放清單資訊')
+    # async def playlist_info(self, ctx, playlist_id):
+    #     url = f"https://www.googleapis.com/youtube/v3/playlists?key={YouTube['API_KEY']}&id={playlist_id}&part=snippet"
+    #     jsonText = requests.get(url)
+    #     snippet = json.loads(jsonText)
+
+    #     url = f"https://www.googleapis.com/youtube/v3/playlists?key={YouTube['API_KEY']}&id={playlist_id}&part=id,snippet&fields=items(id,snippet(title,channelId,channelTitle))"
+    #     jsonText = requests.get(url)
+    #     snippet = json.loads(jsonText)['items'][0]['snippet']
+
+    #     embed=discord.Embed(title=snippet['title'], url=bot['url'], description=snippet['description'], color=0x00ffd5)
+    #     embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
+    #     embed.set_thumbnail(url=snippet['thumbnails']['high']['url'])
+    #     embed.add_field(name='建立日期', value=snippet['publishedAt'], inline=True)
+    #     embed.add_field(name='頻道標題', value=snippet['channelTitle'], inline=True)
+    #     embed.add_field(name='頻道ID', value=snippet['channelId'], inline=True)
+    #     embed.set_footer(text='技術提供: 靈萌團隊')
+    #     await ctx.send(embed=embed)

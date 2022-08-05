@@ -73,7 +73,7 @@ class SlashWeather(commands.Cog):
     async def weather(self, ctx , city: str):
         if '市' not in city and '縣' not in city:
             city = dict_city.get(city)
-        await ctx.send(f'查詢{city}的中...請稍後')
+        await ctx.send(f'查詢{city}的天氣中...請稍後')
         url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' + token + '&locationName=' + city
         data = requests.get(url)
         txt = json.loads(data.text)
