@@ -138,10 +138,10 @@ class CTBot(commands.Bot):
 			if config['enable_embed'] == 'no':
 				await guild.system_channel.send(to_send.format(member_mention=member.mention, guild_name=guild.name))
 			elif config['enable_embed'] == 'yes':
-				embed=discord.Embed(title=version.bot['name'], url=version.bot['url'], description=config['embed_join_text'].format(member_mention=member.mention), color=0x00ffd5)
-				embed.set_author(name=version.team['name'], url=version.bot['url'], icon_url=version.bot['icon'])
+				embed=discord.Embed(title=bot['name'], url=bot['url'], description=config['embed_join_text'].format(member_mention=member.mention), color=0x00ffd5)
+				embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
 				if config['enable_embed_thumbnail'] == 'yes':
-					embed.set_thumbnail(url=version.bot['icon'])
+					embed.set_thumbnail(url=bot['icon'])
 				await guild.system_channel.send(embed=embed)
 			else:
 				print('Error Json File Config')
@@ -157,10 +157,10 @@ class CTBot(commands.Bot):
 			if config['enable_embed'] == 'no':
 				await guild.system_channel.send(to_send.format(member_name=member.name))
 			elif config['enable_embed'] == 'yes':
-				embed=discord.Embed(title=version.bot['name'], url=version.bot['url'], description=config['embed_leave_text'].format(member_name=member.name), color=0x00ffd5)
-				embed.set_author(name=version.team['name'], url=version.bot['url'], icon_url=version.bot['icon'])
+				embed=discord.Embed(title=bot['name'], url=bot['url'], description=config['embed_leave_text'].format(member_name=member.name), color=0x00ffd5)
+				embed.set_author(name=team['name'], url=bot['url'], icon_url=bot['icon'])
 				if config['enable_embed_thumbnail'] == 'yes':
-					embed.set_thumbnail(url=version.bot['icon'])
+					embed.set_thumbnail(url=bot['icon'])
 				await guild.system_channel.send(embed=embed)
 			else:
 				print('Error Json File Config')
