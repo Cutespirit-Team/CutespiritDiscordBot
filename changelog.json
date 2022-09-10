@@ -1,0 +1,343 @@
+[
+    {
+        "version": "v0.1",
+        "date": "2021/07/19",
+        "content": [
+            "初始版本(由TershiCloud Telegram Bot修改)"
+        ]
+    },
+    {
+        "version": "v0.2",
+        "date": "2021/07/19",
+        "content": [
+            "增加/status指令，可以隨時更改Discord狀態，刪除lang語言功能。"
+        ]
+    },
+    {
+        "version": "v0.3",
+        "date": "2021/07/20",
+        "content": [
+            "增加/kick /ban /unban指令，可以隨時踢人，封鎖，解封人。"
+        ]
+    },
+    {
+        "version": "v0.4",
+        "date": "2021/07/20",
+        "content": [
+            "將/time --help顯示/week問題修復。"
+        ]
+    },
+    {
+        "version": "v0.5",
+        "date": "2021/07/20",
+        "content": [
+            "完善各--help幫助內容。"
+        ]
+    },
+    {
+        "version": "v0.6",
+        "date": "2021/07/20",
+        "content": [
+            "修復Bug。"
+        ]
+    },
+    {
+        "version": "v0.7",
+        "date": "2021/07/20",
+        "content": [
+            "並加入YouTube之/join /play /pause /resume /stop /leave功能。"
+        ]
+    },
+    {
+        "version": "v0.8",
+        "date": "2021/07/21",
+        "content": [
+            "完善沒有加參數無法顯示的錯誤。"
+        ]
+    },
+    {
+        "version": "v0.9",
+        "date": "2021/07/22",
+        "content": [
+            "修復/play二次加入連結顯示沒有播放的錯誤。"
+        ]
+    },
+    {
+        "version": "v0.9.1",
+        "date": "2021/07/22",
+        "content": [
+            "刪除/showweb指令。"
+        ]
+    },
+    {
+        "version": "v0.9.2",
+        "date": "2021/07/22",
+        "content": [
+            "增加一般群組無法執行/命令。"
+        ]
+    },
+    {
+        "version": "v1.0",
+        "date": "2021/07/22",
+        "content": [
+            "將所有help與傳送字樣中文化，並且將message一部分導出。"
+        ]
+    },
+    {
+        "version": "v2.0",
+        "date": "2021/08/14",
+        "content": [
+            "Completely rewrite"
+        ]
+    },
+    {
+        "version": "v2.1",
+        "date": "2021/08/28",
+        "content": [
+            "Update Slash Library to 2.3.2"
+        ]
+    },
+    {
+        "version": "v2.2",
+        "date": "2021/08/29",
+        "content": [
+            "Update Help Command"
+        ]
+    },
+    {
+        "version": "v2.3",
+        "date": "2021/08/29",
+        "content": [
+            "Featrue: add weather infomations"
+        ]
+    },
+    {
+        "version": "v2.4",
+        "date": "2021/08/29",
+        "content": [
+            "Feature: add Wx, PoP, MinT"
+        ]
+    },
+    {
+        "version": "v2.5",
+        "date": "2021/08/29",
+        "content": [
+            "Fix Bug: input 台北 auto convert to 臺北市"
+        ]
+    },
+    {
+        "version": "v2.5.1",
+        "date": "2021/08/29",
+        "content": [
+            "Change long weatherElement Code to be simple"
+        ]
+    },
+    {
+        "version": "v2.5.2",
+        "date": "2021/08/30",
+        "content": [
+            "Change Weather display mode and add option"
+        ]
+    },
+    {
+        "version": "v2.6",
+        "date": "2021/08/30",
+        "content": [
+            "Add Feature: Time Remain of this year"
+        ]
+    },
+    {
+        "version": "v2.6.1",
+        "date": "2021/12/31",
+        "content": [
+            "Add Feature: Time Remain in roc or vids"
+        ]
+    },
+    {
+        "version": "2022/01/02",
+        "date": "v2.6.2",
+        "content": [
+            "Add Feature: Show Hardware information"
+        ]
+    },
+    {
+        "version": "v2.6.3",
+        "date": "2022/01/02",
+        "content": [
+            "Fix Bug: add hardware Description and help"
+        ]
+    },
+    {
+        "version": "v2.6.4",
+        "date": "2022/01/02",
+        "content": [
+            "Add Feature: Run Speedtest"
+        ]
+    },
+    {
+        "version": "v2.6.5",
+        "date": "2022/01/09",
+        "content": [
+            "Add Feature: Time Exam Left"
+        ]
+    },
+    {
+        "version": "v2.6.6",
+        "date": "2022/01/10",
+        "content": [
+            "Add Feature: Github Info"
+        ]
+    },
+    {
+        "version": "v2.6.7",
+        "date": "2022/01/10",
+        "content": [
+            "Add Feature: Server State"
+        ]
+    },
+    {
+        "version": "v2.6.8",
+        "date": "2022/01/11",
+        "content": [
+            "Update github_info Not Found"
+        ]
+    },
+    {
+        "version": "v2.6.9",
+        "date": "2022/01/18",
+        "content": [
+            "Add Feature: increase github_visitor"
+        ]
+    },
+    {
+        "version": "v2.7.0",
+        "date": "2022/01/21",
+        "content": [
+            "Add Feature: check if have permission or not"
+        ]
+    },
+    {
+        "version": "v2.7.1",
+        "date": "2022/01/25",
+        "content": [
+            "Fix bug: change weather token to version.py"
+        ]
+    },
+    {
+        "version": "v2.8",
+        "date": "2022/01/27",
+        "content": [
+            "Feature: Add Cutespirit-SHOP Place Order",
+            "Feature: Add Cutespirit-SHOP Check Order",
+            "Feature: Add About dcbot, author, team",
+            "Fix bug: Add version.py more configurations",
+            "Update version to about"
+        ]
+    },
+    {
+        "version": "v2.9",
+        "date": "2022/05/05",
+        "content": [
+            "Feature: Add words forbidden"
+        ]
+    },
+    {
+        "version": "v3.0",
+        "date": "2022/05/05",
+        "content": [
+            "Feature: Add Time Config",
+            "Feature: Add words forbidden Config",
+            "Feature: Add user customize time left",
+            "Feature: Remove time exam left"
+        ]
+    },
+    {
+        "version": "v3.1",
+        "date": "2022/05/07",
+        "content": [
+            "Feature: Add Member_Join_Notification",
+            "Feature: Add Member_Left_Notificaion",
+            "Fix Bug: Typo at words forbidden",
+            "Add Feature: Member_Join_Notification Embed",
+            "Featrue: Add Member Config",
+            "Feature: Add create invitation link"
+        ]
+    },
+    {
+        "version": "v3.2",
+        "date": "2022/05/08",
+        "content": [
+            "Add Fearute: Service Ticket",
+            "Change Feature: help text to embed"
+        ]
+    },
+    {
+        "version": "v3.3",
+        "date": "2022/05/08",
+        "content": [
+            "Add Feature: guild Config for Specific Guild"
+        ]
+    },
+    {
+        "version": "v3.4",
+        "date": "2022/05/12",
+        "content": [
+            "Feature: Add TaiwanStock",
+            "Feature: Add Help Q and A",
+            "Feature: Add service ticket",
+            "Fix Bug: weather not respond"
+        ]
+    },
+    {
+        "version": "v3.5",
+        "date": "2022/05/12",
+        "content": [
+            "Fix Bug: utils.py json import error",
+            "Fix Bug: remove development mode",
+            "Feature: Add stauts type"
+        ]
+    },
+    {
+        "version": "v3.6",
+        "date": "2022/05/14",
+        "content": [
+            "Feature: Add Reaction Role",
+            "Fix bug: time zone",
+            "Feature: Add spam words detect",
+            "Feature: Add specific channel id when specific reaction roles",
+            "Feature: Remove notification when opening a ticket",
+            "Add Feature: Give guest role when a member join",
+            "Files: Add configuration example"
+        ]
+    },
+    {
+        "version": "v3.7",
+        "date": "2022/05/14",
+        "content": [
+            "Fix Bug: member join error",
+            "Feature: when ticket closed, move it to category",
+            "Fix Bug: Taiwan stock output error"
+        ]
+    },
+    {
+        "version": "v4.0",
+        "date": "2022/06/25",
+        "content": [
+            "Feature: Add normal role of clicking reaction",
+            "Feature: Add reload command",
+            "Feature: Remove config recreating",
+            "Feature: Add reload status notification",
+            "Feature: Add sendmsg permission",
+            "Feature: Integrate member_count to server_state",
+            "Feature: Add YouTube channel info",
+            "Feature: Add YouTube video info"
+        ]
+    },
+    {
+        "version": "v4.0.1",
+        "date": "2022/08/29",
+        "content": [
+            "Fix Bug: member join leave will not send noti"
+        ]
+    }
+]
