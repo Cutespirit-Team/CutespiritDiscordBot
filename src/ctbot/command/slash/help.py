@@ -26,12 +26,12 @@ class SlashHelp(commands.Cog):
 					/speedtest | 測試上傳與下載速度
 					/about dcbot | 關於本機器人
 					/about author | 關於作者
-					/about team | 關於靈萌團隊
+					/about cutespirit | 關於靈萌團隊
 					/about version | 顯示版本
 				''', inline=False)
-		embed.add_field(name='ArchLinux功能：', value='''
-					/pacman pkg_files [套件] | 查詢 Arch 指令所屬套件
-					/pacman pkg_info [套件] | 查詢 Arch 套件資訊
+		embed.add_field(name='中科大選項：', value='''
+					/timetable id_check [班級名稱] | 查看班級代號
+					/timetable show [班級名稱] | 查看班級課表
 				''', inline=False)
 		embed.add_field(name='Dicord功能：', value='''
 					/status [狀態] [訊息] | 更改機器人狀態

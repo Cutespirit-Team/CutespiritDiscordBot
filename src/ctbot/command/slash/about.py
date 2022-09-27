@@ -38,7 +38,7 @@ class SlashAbout(commands.Cog):
         await ctx.send(embed=embed)
 
     @cog_slash_managed(base="about", description="關於團隊")
-    async def team(self, ctx):
+    async def cutespirit(self, ctx):
         embed=discord.Embed(title=bot['name'], url=bot['url'], description=team['description'], color=0x00ffd5)
         embed.set_author(name=team['name'], url=team['url'], icon_url=team['icon'])
         embed.set_thumbnail(url=team['icon'])
