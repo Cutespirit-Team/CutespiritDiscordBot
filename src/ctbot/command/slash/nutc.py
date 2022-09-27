@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 from ..utils import cog_slash_managed
+from discord_slash.utils.manage_commands import create_option
+from discord_slash.model import SlashCommandOptionType
 import requests
 import json
 
@@ -21,11 +23,11 @@ def getID(class_name):
     url = 'https://api.tershi.com/getClassRoom'
     data = requests.get(url).text
     data = json.loads(data)
-    matching = [s['id'] for s in data if strB2Q(class_name) in s['name']]
-    lst = []
-    for i in matching:
-        lst.append(i)
-    return lst
+    matching = []
+    matching += ([[s['name'], s['id']] for s in data if strB2Q(class_name) in s['name']])
+    # for i in matching:
+    #     lst.append(i)
+    return matching
 
 class SlashNutc(commands.Cog):
     def __init__(self, bot: discord.Client):
@@ -38,14 +40,18 @@ class SlashNutc(commands.Cog):
         option_type=SlashCommandOptionType.STRING,
         required=True)])
     async def id_check(self, ctx, class_name: str="null"):
-        if class_name == null:
+        if class_name == 'null':
             await ctx.send('請輸入班級名稱或是正確的值')
         else:
             lst = getID(class_name)
             text = ''
-            for i in lst:
-                text += i + ', '
-            return text
+            if len(lst) == 1:
+                text = f"班級: {lst[0][0]}, ID: {lst[0][1]}"
+                await ctx.send(text)
+            else:
+                for i in lst:
+                    text += f"班級: {i[0]}, ID: {i[1]} \n"
+                await ctx.send(text)
 
     @cog_slash_managed(base="timetable",
         description='查看班級課表',
@@ -53,15 +59,19 @@ class SlashNutc(commands.Cog):
         create_option('class_name', '班級名稱(例:資工一1)',
         option_type=SlashCommandOptionType.STRING,
         required=True)])
-    async def id_check(self, ctx, class_name: str="null"):
-        if class_name == null:
+    async def show_table(self, ctx, class_name: str="null"):
+        if class_name == 'null':
             await ctx.send('請輸入班級名稱或是正確的值')
         else:
             if len(getID(class_name)) == 1:
-                url = 'https://api.tershi.com/getTable?id=' + getID(class_name)[0]
+                url = 'https://api.tershi.com/getTable?id=' + getID(class_name)[0][1]
                 data = requests.get(url).text
-                # data = json.loads(data)
-                await ctx.send(data)
+                data = json.loads(data)
+
+                text = ""
+                for i in data[0]:
+                    text += i + ', '
+                await ctx.send(text)
                 await ctx.send('課表尚還沒完成')
             else:
                 await ctx.send('請輸入完整的班級號碼')
