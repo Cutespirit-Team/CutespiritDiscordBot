@@ -1,10 +1,11 @@
-# Cutespirit Discord Bot
+# Cutespirit Discord Bot - NUTC
 ## Install and Run
 ```sh
 git clone https://github.com/Cutespirit-Team/CutespiritDiscordBot
+cd ./CutespiritDiscordBot/
+git checkout nutc
 
 # install requirements
-cd ./CutespiritDiscordBot/
 pip install -r requirments.txt
 
 # execute
