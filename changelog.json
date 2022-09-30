@@ -339,5 +339,23 @@
         "content": [
             "Fix Bug: member join leave will not send noti"
         ]
+    },
+    {
+        "version": "v4.0.2",
+        "date": "2022/09/27",
+        "content": [
+            "Feature: Change About to NUTC",
+            "Feature: Remove ArchLinux Command",
+            "Feature: Remove Pay Command",
+            "Feature: Add NUTC Timetable Id Checker",
+            "Feature: Add NUTC Timetable shower"
+        ]
+    },
+    {
+        "version": "v4.0.3",
+        "date": "2022/09/30",
+        "content": [
+            "Fix Bug: stock time error"
+        ]
     }
 ]
