@@ -346,5 +346,12 @@
         "content": [
             "Fix Bug: stock time error"
         ]
+    },
+    {
+        "version": "v4.0.3",
+        "date": "2022/09/30",
+        "content": [
+            "Fix Bug: stock not found no err msg"
+        ]
     }
 ]
