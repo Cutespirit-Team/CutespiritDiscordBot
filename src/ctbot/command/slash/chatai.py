@@ -18,7 +18,7 @@ def prompt(input_str):
         stop = [" Human:", " AI:"]
     )
     res = response['choices'][0]['text']
-    return res.split()[0]
+    return res
 
 
 
