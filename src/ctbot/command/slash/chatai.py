@@ -1,10 +1,13 @@
 import openai
+import os
 import discord
 from discord.ext import commands
 from ..utils import cog_slash_managed
+from dotenv import load_dotenv
 
+load_dotenv()
 
-openai.api_key = "PUT UR TOKEN HERE"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def prompt(input_str):
     response = openai.Completion.create(
@@ -18,8 +21,7 @@ def prompt(input_str):
         stop = [" Human:", " AI:"]
     )
     res = response['choices'][0]['text']
-    return res.split()[0]
-
+    return res
 
 
 
