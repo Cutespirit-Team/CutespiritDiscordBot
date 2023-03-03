@@ -10,17 +10,13 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def prompt(input_str):
-    response = openai.Completion.create(
-        model = "text-davinci-003",
-        prompt = f"Human: {input_str} \n AI:",
-        temperature = 0.9,
-        max_tokens = 999,
-        top_p = 1,
-        frequency_penalty = 0,
-        presence_penalty = 0.6,
-        stop = [" Human:", " AI:"]
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo",
+        messages = [
+            {"role": "user", "content": input_str}
+        ]
     )
-    res = response['choices'][0]['text']
+    res = response.choices[0].message.content
     return res
 
 
@@ -28,7 +24,7 @@ def prompt(input_str):
 class SlashChatai(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
-    @cog_slash_managed(description='OpenAI GPT-3')
+    @cog_slash_managed(description='OpenAI GPT-3.5')
     async def chatai(self, ctx, msg):
         await ctx.defer()
         await ctx.send(prompt(msg))
