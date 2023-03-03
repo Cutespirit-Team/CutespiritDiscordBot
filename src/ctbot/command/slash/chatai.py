@@ -24,7 +24,7 @@ def prompt(input_str):
 class SlashChatai(commands.Cog):
     def __init__(self, bot: discord.Client):
         self.bot = bot
-    @cog_slash_managed(description='OpenAI GPT-3')
+    @cog_slash_managed(description='OpenAI GPT-3.5')
     async def chatai(self, ctx, msg):
         await ctx.defer()
         await ctx.send(prompt(msg))
